@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <Navbar isOpen={isNavOpen} onToggle={handleToggleNav} onClose={handleCloseNav} />
-      <main>
+      <main className="w-full overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
           {/* Future routes can be added here */}

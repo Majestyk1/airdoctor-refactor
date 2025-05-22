@@ -17,7 +17,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   const handleScroll = () => {
-    setIsScrolled(window.scrollY > 0)
+    setIsScrolled(window.scrollY > 50)
   }
 
   // Add scroll listener once on mount
@@ -26,35 +26,48 @@ function Navbar({ isOpen, onToggle, onClose }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const linkHover = isScrolled ? 'hover:text-blue-700' : 'hover:text-blue-600'
-
   return (
-    <header className={`fixed top-0 left-0 w-full z-40 transition-colors ${isScrolled ? 'bg-white shadow' : 'bg-transparent'}`}>
-      <div className="flex items-center justify-between max-w-screen-lg mx-auto px-4 py-4 md:py-6">
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow py-2' : 'bg-transparent py-4'}`}>
+      <div className="flex items-center justify-between max-w-screen-xl mx-auto px-4">
         {/* Logo */}
-        <Link to="/" className="text-lg font-bold text-blue-600">AirDoctorHVAC</Link>
+        <Link to="/" className={`text-lg font-bold ${isScrolled ? 'text-blue-600' : 'text-white'}`}>AirDoctorHVAC</Link>
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-6">
           {links.map(({ to, label }) => (
-            <Link key={to} to={to} className={`text-sm font-medium ${linkHover}`} onClick={onClose}>
+            <Link 
+              key={to} 
+              to={to} 
+              className={`text-sm font-medium transition-colors ${isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-white/80'}`} 
+              onClick={onClose}
+            >
               {label}
             </Link>
           ))}
         </nav>
         {/* CTA + Hamburger */}
         <div className="flex items-center space-x-4 md:space-x-6">
-          <a href="tel:5551234567" className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700" aria-label="Call 555-123-4567">
+          <a 
+            href="tel:5551234567" 
+            className={`hidden md:inline-flex items-center gap-2 text-sm font-medium ${isScrolled ? 'text-blue-600 hover:text-blue-700' : 'text-white hover:text-white/80'}`} 
+            aria-label="Call 555-123-4567"
+          >
             <Phone className="w-4 h-4" />
             <span>24/7</span>
           </a>
-          <button onClick={onToggle} className="md:hidden p-2" aria-label="Toggle navigation" tabIndex="0" onKeyDown={(e)=>{if(e.key==='Enter'){onToggle()}}}>
+          <button 
+            onClick={onToggle} 
+            className={`md:hidden p-2 ${isScrolled ? 'text-gray-800' : 'text-white'}`} 
+            aria-label="Toggle navigation" 
+            tabIndex="0" 
+            onKeyDown={(e)=>{if(e.key==='Enter'){onToggle()}}}
+          >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
       {/* Mobile Drawer */}
-      <div className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
-      <aside className={`fixed inset-y-0 right-0 w-3/4 max-w-xs bg-white p-6 transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`} aria-label="Mobile navigation" onClick={(e)=>e.stopPropagation()}>
+      <div className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity z-40 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
+      <aside className={`fixed inset-y-0 right-0 w-3/4 max-w-xs bg-white p-6 transition-transform z-50 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`} aria-label="Mobile navigation" onClick={(e)=>e.stopPropagation()}>
         <nav className="flex flex-col space-y-4">
           {links.map(({ to, label }) => (
             <Link key={to} to={to} className="text-lg font-medium py-2 border-b border-gray-100" onClick={onClose}>
