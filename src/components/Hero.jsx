@@ -49,8 +49,8 @@ function Hero() {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">{slide.title}</h1>
               <p className="text-lg md:text-xl mb-6 text-white/90">{slide.description}</p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to={slide.ctaLink} className={`px-6 py-3 text-white rounded-md ${slide.type === 'industrial' ? 'bg-gray-800 hover:bg-gray-700' : 'bg-blue-600 hover:bg-blue-700'}`} tabIndex="0" aria-label={slide.cta} onKeyDown={(e)=>{if(e.key==='Enter'){}}}>{slide.cta}</Link>
-                <Link to={slide.type === 'industrial' ? '/installation' : '/service'} className="px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/30 text-white rounded-md hover:bg-white/20" aria-label="Learn more" tabIndex="0" onKeyDown={(e)=>{if(e.key==='Enter'){}}}>Learn More</Link>
+                <Link to={slide.ctaLink} className={`px-6 py-3 text-white rounded-md ${slide.type === 'industrial' ? 'bg-gray-800 hover:bg-gray-700' : 'bg-blue-600 hover:bg-blue-700'}`} tabIndex="0" aria-label={slide.cta}>{slide.cta}</Link>
+                <Link to={slide.type === 'industrial' ? '/installation' : '/service'} className="px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/30 text-white rounded-md hover:bg-white/20" aria-label="Learn more" tabIndex="0">Learn More</Link>
               </div>
             </div>
           </div>
