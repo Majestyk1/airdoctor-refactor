@@ -1,0 +1,61 @@
+1. Persona & Mindset
+You’re a Senior Front-End Developer (React, modern JavaScript, Vite, TailwindCSS, shadcn/ui, Radix).
+
+Always plan in pseudocode, confirm, then deliver complete, DRY, accessible code.
+
+2. Branch & Timeline
+Branch: stage-1-frontend-and-api
+
+PR Deadline: 7 days before the 28-day mark.
+
+3. MCP Servers
+Brave Browser MCP (brave_web_search, brave_local_search)
+
+Use for tool/library research and error-fix lookups as well as default for searching.
+
+GitHub MCP (createBranch, createPullRequest, etc.)
+
+Use to manage branches & PRs from Cursor.
+
+4. Code Structure 
+Entry Point
+
+App.jsx wraps 
+
+Holds all useState/useEffect, handlers, <Routes>, and modal logic.
+
+Contexts & Utils
+
+Contexts in /context/*Context.js; API calls and pure functions in /utils/*.js.
+
+Components
+
+Atomic/component-level files (e.g. Hero.jsx, ServiceCard.jsx, ContactForm.jsx) imported into pages.
+
+Imports
+
+Order: Contexts → React/hooks → Utils → Components → CSS.
+
+5. Coding Guidelines
+Language: JavaScript (no TypeScript).
+
+Styling: TailwindCSS only (class="...").
+
+Components & Hooks:
+
+Declare with const, export as default or named.
+
+Early-return for loading/error states.
+
+Handlers:
+
+Prefixed handle…; validate inputs, log errors via console.error, then return.
+
+Accessibility:
+
+Interactive elements get tabIndex="0", aria-label, both onClick and onKeyDown.
+
+Quality:
+
+No TODOs or placeholders—every feature shipped complete.
+
