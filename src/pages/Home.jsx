@@ -7,10 +7,10 @@ function Home() {
     <>
       <Hero />
       {/* Services Section */}
-      <section className="home-services">
-        <div className="home-services__container">
-          <h2 className="home-services__title">Our Services</h2>
-          <div className="home-services__grid">
+      <section className="home-services py-12 bg-white">
+        <div className="home-services__container container mx-auto px-4">
+          <h2 className="home-services__title text-2xl md:text-3xl font-bold text-center mb-8">Our Services</h2>
+          <div className="home-services__grid grid grid-cols-1 md:grid-cols-3 gap-6">
             <ServiceCard
               title="HVAC Service"
               description="Regular maintenance and emergency repairs for all HVAC systems. Keep your system running efficiently year-round."
@@ -39,4 +39,4 @@ function Home() {
   )
 }
 
-export default Home 
+export default Home
