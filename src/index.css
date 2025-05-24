@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@layer base {
+  /* Professional font stack with traditional fallbacks */
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  }
+}
+
 @layer utilities {
   .bg-brand-gradient {
     @apply bg-gradient-to-br from-blue-600 to-green-600;
