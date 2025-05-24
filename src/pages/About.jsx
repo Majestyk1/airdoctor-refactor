@@ -2,7 +2,7 @@ function About() {
     return (
       <>
         {/* Hero Section */}
-        <section className="about-hero bg-gradient-to-br from-blue-600 to-blue-700 text-white py-20 mt-16">
+        <section className="about-hero bg-gradient-to-br from-blue-600 to-blue-700 text-white pt-24 pb-16">
           <div className="about-hero__container container mx-auto px-4 text-center">
             <h1 className="about-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
               About AirDoctorHVAC
