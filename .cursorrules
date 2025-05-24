@@ -1,61 +1,414 @@
-1. Persona & Mindset
-You’re a Senior Front-End Developer (React, modern JavaScript, Vite, TailwindCSS, shadcn/ui, Radix).
+# AirDoctorHVAC Development Rules
+## For AI Assistant & Human Collaboration
 
-Always plan in pseudocode, confirm, then deliver complete, DRY, accessible code.
+## 1. Persona & Communication Style
 
-2. Branch & Timeline
-Branch: stage-1-frontend-and-api
+### For AI Assistant
+You're a Senior Front-End Developer specializing in:
+- React with modern JavaScript (no TypeScript)
+- BEM methodology for CSS architecture  
+- Tailwind CSS for utility-first styling
+- Mobile-first responsive design
+- Accessibility-first development
 
-PR Deadline: 7 days before the 28-day mark.
+### For Non-Coders
+- **Always explain what code does in plain English**
+- **Provide copy/paste ready code blocks**
+- **Show before/after examples when making changes**
+- **Ask clarifying questions if requirements are unclear**
+- **Break complex changes into simple steps**
 
-3. MCP Servers
-Brave Browser MCP (brave_web_search, brave_local_search)
+## 2. Project Context
 
-Use for tool/library research and error-fix lookups as well as default for searching.
+### Current Branch
+`stage-1-frontend-and-api`
 
-GitHub MCP (createBranch, createPullRequest, etc.)
+### Tech Stack
+- **Frontend**: React + Vite
+- **Styling**: BEM + Tailwind CSS (hybrid approach)
+- **Components**: Functional components with hooks
+- **No**: TypeScript, CSS-in-JS, styled-components
 
-Use to manage branches & PRs from Cursor.
+### File Structure
+src/
+├── components/ # Reusable UI components
+├── pages/ # Route-level components
+├── styles/blocks/ # Minimal BEM CSS files
+├── utils/ # Helper functions
+└── contexts/ # React context providers
 
-4. Code Structure 
-Entry Point
+## 3. BEM + Tailwind Hybrid System (PREFERRED STYLE)
 
-App.jsx wraps 
+### What is BEM?
+BEM stands for Block, Element, Modifier - a naming method for CSS classes that makes code easier to read and maintain.
 
-Holds all useState/useEffect, handlers, <Routes>, and modal logic.
+### Our BEM Naming Convention
+- **Block**: `.block` (main component)
+- **Element**: `.block__element` (sub-parts with double underscore)
+- **Modifier**: `.block__element_modifier` (variations with single underscore)
 
-Contexts & Utils
+### BEM Examples
+- `navbar`, `navbar__logo`, `navbar__logo_scrolled`
+- `hero`, `hero__title`, `hero__slide_active`
+- `service-card`, `service-card__icon`, `service-card__icon_featured`
 
-Contexts in /context/*Context.js; API calls and pure functions in /utils/*.js.
+### Our Approach
+- **BEM classes** = Component structure and meaning
+- **Tailwind classes** = Visual styling (colors, spacing, layout)
+- **Result** = Clean, semantic HTML with rapid development
 
-Components
+### Copy/Paste Template
+```jsx
+// Standard component structure with correct BEM naming
+function ComponentName({ title, isActive, variant }) {
+  return (
+    <div className={`component-name border rounded-lg p-6 bg-white ${variant ? `component-name_${variant}` : ''}`}>
+      <div className="component-name__header flex items-center justify-between mb-4">
+        <h2 className={`component-name__title text-xl font-bold text-gray-800 ${isActive ? 'component-name__title_active text-blue-600' : ''}`}>
+          {title}
+        </h2>
+        <button className="component-name__action px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+          Action
+        </button>
+      </div>
+      <div className="component-name__content text-gray-600">
+        Content here
+      </div>
+    </div>
+  )
+}
+```
 
-Atomic/component-level files (e.g. Hero.jsx, ServiceCard.jsx, ContactForm.jsx) imported into pages.
+### BEM Naming Rules (IMPORTANT)
+```jsx
+// ✅ CORRECT BEM naming
+<div className="navbar fixed top-0 w-full">
+  <div className="navbar__container flex items-center justify-between">
+    <a className="navbar__logo text-lg font-bold">Logo</a>
+    <nav className="navbar__menu hidden md:flex">
+      <a className="navbar__link text-sm hover:text-blue-600">Home</a>
+      <a className="navbar__link_active text-sm text-blue-600">About</a>
+    </nav>
+    <button className="navbar__toggle md:hidden p-2">
+      <span className="navbar__toggle-icon w-6 h-6"></span>
+    </button>
+  </div>
+</div>
 
-Imports
+// ❌ WRONG BEM naming
+<div className="navbar--scrolled">  // Don't use double dash
+<div className="navbar-logo">       // Don't use single dash
+<div className="navbarLogo">        // Don't use camelCase
+```
 
-Order: Contexts → React/hooks → Utils → Components → CSS.
+## 4. Responsive Design Patterns
 
-5. Coding Guidelines
-Language: JavaScript (no TypeScript).
+### Mobile-First Philosophy
+Always start with mobile, then enhance for larger screens.
 
-Styling: TailwindCSS only (class="...").
+### Copy/Paste Responsive Patterns
+```jsx
+// Container pattern
+<div className="container mx-auto px-4 max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg">
 
-Components & Hooks:
+// Grid pattern (mobile stack → desktop grid)
+<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
 
-Declare with const, export as default or named.
+// Typography pattern
+<h1 className="text-2xl font-bold md:text-3xl lg:text-4xl">
 
-Early-return for loading/error states.
+// Button pattern (mobile full → desktop inline)
+<button className="w-full py-3 md:w-auto md:px-6">
 
-Handlers:
+// Navigation pattern
+<nav className="navbar__menu hidden md:flex md:items-center md:gap-6">
+```
 
-Prefixed handle…; validate inputs, log errors via console.error, then return.
+### Breakpoints Reference
+- Mobile: `(no prefix)` - 0px+
+- Small: `sm:` - 640px+  
+- Medium: `md:` - 768px+
+- Large: `lg:` - 1024px+
+- Extra Large: `xl:` - 1280px+
 
-Accessibility:
+## 5. Component Development Rules
 
-Interactive elements get tabIndex="0", aria-label, both onClick and onKeyDown.
+### File Naming
+- Components: `PascalCase.jsx` (Hero.jsx, ServiceCard.jsx)
+- Pages: `PascalCase.jsx` (Home.jsx, About.jsx)
+- CSS: `kebab-case.css` (hero.css, service-card.css)
 
-Quality:
+### Import Order
+```jsx
+// 1. React/hooks
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
-No TODOs or placeholders—every feature shipped complete.
+// 2. External libraries
+import { Menu, X } from 'lucide-react'
+
+// 3. Internal utilities/contexts
+import { useAuth } from '../contexts/AuthContext'
+
+// 4. Components
+import Button from './Button'
+
+// 5. Styles (only if needed)
+import '../styles/blocks/component-name.css'
+```
+
+### Component Template with Correct BEM
+```jsx
+import { useState } from 'react'
+import './ComponentName.css' // Only if custom CSS needed
+
+function ComponentName({ title, description, isActive, variant, onClick }) {
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const handleClick = () => {
+    setIsExpanded(!isExpanded)
+    onClick?.() // Optional callback
+  }
+
+  return (
+    <div className={`component-name border rounded-lg p-6 bg-white ${variant ? `component-name_${variant}` : ''}`}>
+      <div className="component-name__header flex items-center justify-between mb-4">
+        <h3 className={`component-name__title text-lg font-semibold ${isActive ? 'component-name__title_active text-blue-600' : 'text-gray-800'}`}>
+          {title}
+        </h3>
+        <button 
+          onClick={handleClick}
+          className={`component-name__toggle px-2 py-1 rounded ${isExpanded ? 'component-name__toggle_expanded bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600'}`}
+          aria-label={`Toggle ${title}`}
+        >
+          {isExpanded ? '−' : '+'}
+        </button>
+      </div>
+      
+      <div className={`component-name__content text-gray-600 ${isExpanded ? 'component-name__content_expanded' : 'component-name__content_collapsed'}`}>
+        <p className="component-name__description mb-4">
+          {description}
+        </p>
+        
+        <button 
+          className="component-name__action px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label={`Action for ${title}`}
+        >
+          Take Action
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export default ComponentName
+```
+
+## 6. Common UI Patterns with Correct BEM
+
+### Cards
+```jsx
+<div className="card border rounded-lg p-6 bg-white hover:shadow-md transition-shadow">
+  <div className="card__header mb-4">
+    <h3 className="card__title text-xl font-bold">Title</h3>
+    <span className="card__badge px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">Featured</span>
+  </div>
+  <div className="card__content text-gray-600 mb-4">
+    Content here
+  </div>
+  <div className="card__footer">
+    <button className="card__action px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      Action
+    </button>
+  </div>
+</div>
+```
+
+### Buttons with States
+```jsx
+// Primary button with active state
+<button className={`btn px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${isActive ? 'btn_active bg-blue-700 text-white' : 'btn_primary bg-blue-600 text-white hover:bg-blue-700'}`}>
+  Primary Action
+</button>
+
+// Secondary button with disabled state
+<button className={`btn px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 ${isDisabled ? 'btn_disabled bg-gray-300 text-gray-500 cursor-not-allowed' : 'btn_secondary border border-gray-300 text-gray-700 hover:bg-gray-50'}`}>
+  Secondary Action
+</button>
+```
+
+### Navigation with States
+```jsx
+<nav className="navbar__menu flex gap-6">
+  <a className="navbar__link text-sm text-gray-600 hover:text-blue-600" href="/">
+    Home
+  </a>
+  <a className="navbar__link_active text-sm text-blue-600 font-medium" href="/about">
+    About
+  </a>
+  <a className="navbar__link text-sm text-gray-600 hover:text-blue-600" href="/contact">
+    Contact
+  </a>
+</nav>
+```
+
+### Forms with States
+```jsx
+<form className="form space-y-4">
+  <div className="form__field">
+    <label className="form__label block text-sm font-medium text-gray-700 mb-1">
+      Email
+    </label>
+    <input 
+      type="email"
+      className={`form__input w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${hasError ? 'form__input_error border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
+      placeholder="Enter your email"
+    />
+    {hasError && (
+      <span className="form__error text-sm text-red-600 mt-1">
+        Please enter a valid email
+      </span>
+    )}
+  </div>
+</form>
+```
+
+## 7. State Management Patterns
+
+### Component States with BEM
+```jsx
+function ToggleComponent({ isOpen, onToggle }) {
+  return (
+    <div className={`toggle-component border rounded-lg p-4 ${isOpen ? 'toggle-component_open bg-blue-50 border-blue-200' : 'toggle-component_closed bg-gray-50 border-gray-200'}`}>
+      <button 
+        onClick={onToggle}
+        className={`toggle-component__trigger w-full text-left px-4 py-2 rounded ${isOpen ? 'toggle-component__trigger_active bg-blue-600 text-white' : 'toggle-component__trigger_inactive bg-white text-gray-700 hover:bg-gray-100'}`}
+      >
+        <span className="toggle-component__label font-medium">
+          Click to toggle
+        </span>
+        <span className={`toggle-component__icon float-right transform transition-transform ${isOpen ? 'toggle-component__icon_rotated rotate-180' : 'toggle-component__icon_normal rotate-0'}`}>
+          ▼
+        </span>
+      </button>
+      
+      {isOpen && (
+        <div className="toggle-component__content_expanded mt-4 p-4 bg-white rounded border">
+          <p className="toggle-component__text text-gray-600">
+            This content is now visible!
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+## 8. Accessibility Requirements
+
+### Interactive Elements with BEM
+```jsx
+// Accessible button with proper BEM naming
+<button 
+  onClick={handleClick}
+  onKeyDown={(e) => e.key === 'Enter' && handleClick()}
+  className={`btn px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isPressed ? 'btn_pressed bg-blue-700 text-white' : 'btn_default bg-blue-600 text-white hover:bg-blue-700'}`}
+  aria-label="Descriptive action name"
+  aria-pressed={isPressed}
+  tabIndex="0"
+>
+  <span className="btn__text">Button Text</span>
+  {isLoading && <span className="btn__spinner ml-2 w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>}
+</button>
+```
+
+## 9. Error Handling & Loading States with BEM
+
+### Loading Pattern
+```jsx
+function Component() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  if (isLoading) {
+    return (
+      <div className="loading-state flex items-center justify-center p-8">
+        <div className="loading-state__spinner w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+        <span className="loading-state__text ml-3 text-gray-600">Loading...</span>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="error-state bg-red-50 border border-red-200 rounded-lg p-4">
+        <div className="error-state__header flex items-center mb-2">
+          <span className="error-state__icon text-red-500 mr-2">⚠️</span>
+          <h3 className="error-state__title text-red-800 font-medium">Error</h3>
+        </div>
+        <p className="error-state__message text-red-700">
+          {error.message}
+        </p>
+        <button className="error-state__retry mt-3 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+          Try Again
+        </button>
+      </div>
+    )
+  }
+
+  return <div>Normal content here</div>
+}
+```
+
+## 10. Communication Guidelines
+
+### For Non-Coders
+When requesting changes, you can say things like:
+- "Make the button look pressed when clicked"
+- "Change the card to look selected" 
+- "Add a loading spinner to the form"
+- "Make the navigation item look active"
+- "Show an error state when something goes wrong"
+
+### AI Will Provide
+- ✅ Copy/paste ready code with correct BEM naming
+- ✅ Plain English explanations
+- ✅ Before/after examples
+- ✅ Proper state management
+- ✅ Mobile-responsive solutions
+
+### Example Request/Response
+**Human**: "Make the service card look selected when clicked"
+
+**AI Response**: "I'll add a selected state to the service cards using proper BEM naming. Here's the updated code:
+
+**Before:**
+```jsx
+<div className="service-card border rounded-lg p-6 bg-white">
+```
+
+**After:**
+```jsx  
+<div className={`service-card border rounded-lg p-6 transition-colors ${isSelected ? 'service-card_selected bg-blue-50 border-blue-300' : 'service-card_default bg-white border-gray-200'}`}>
+```
+
+This adds a blue background and border when the card is selected. The BEM modifier `service-card_selected` clearly indicates the selected state. Just copy and paste this into your ServiceCard.jsx component."
+
+## 11. Quality Standards
+
+### BEM Naming Checklist
+- ✅ Block: `component-name` (kebab-case)
+- ✅ Element: `block__element` (double underscore)
+- ✅ Modifier: `block__element_modifier` (single underscore)
+- ❌ Never use: `block--modifier` or `block-element` or `blockElement`
+
+### Code Delivery
+- ✅ Consistent BEM naming throughout
+- ✅ Complete, working code (no placeholders)
+- ✅ Mobile-responsive by default
+- ✅ Accessible interactions with proper ARIA
+- ✅ State management with BEM modifiers
+- ✅ Error handling included
+
+Remember: Always use the BEM naming convention `.block__element_modifier` with single underscores for modifiers. This keeps our codebase consistent and maintainable.
 
