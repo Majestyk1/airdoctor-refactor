@@ -9,6 +9,7 @@ import Service from './pages/Service.jsx'
 import Installation from './pages/Installation.jsx'
 import Retrofit from './pages/Retrofit.jsx'
 import Projects from './pages/Projects.jsx'
+import Footer from './pages/Footer.jsx'
 
 function App() {
   // Navigation open state for mobile drawer
@@ -37,6 +38,7 @@ function App() {
             {/* Future routes can be added here */}
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   )
