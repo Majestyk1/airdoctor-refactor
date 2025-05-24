@@ -1,188 +1,23 @@
-import { useState } from 'react'
-import { Phone, TrendingUp, Leaf, DollarSign, Zap, CheckCircle, Clock, Award, Calculator, ArrowRight } from 'lucide-react'
+import { Phone, Zap, CheckCircle, Clock, Award, ArrowRight } from 'lucide-react'
+import { DollarSign } from 'lucide-react'
+import RetrofitHero from '../components/sections/Retrofit/RetrofitHero'
+import RetrofitAssessment from '../components/sections/Retrofit/RetrofitAssessment'
+import SavingsCalculator from '../components/sections/Retrofit/SavingsCalculator'
+import { retrofitOptions } from '../data/retrofitData'
 
 function Retrofit() {
-  const [selectedCalculator, setSelectedCalculator] = useState('cooling')
-
-  const retrofitOptions = [
-    {
-      id: 'efficiency',
-      title: 'Energy Efficiency Upgrades',
-      icon: '⚡',
-      description: 'Modernize your existing system for maximum efficiency and lower energy bills.',
-      features: ['High-Efficiency Units', 'Smart Thermostats', 'Improved Ductwork', 'Zoning Systems'],
-      savings: 'Save 20-40% on energy costs',
-      price: 'From $2,500'
-    },
-    {
-      id: 'smart',
-      title: 'Smart System Integration',
-      icon: '📱',
-      description: 'Add smart controls and automation to your existing HVAC system.',
-      features: ['WiFi Thermostats', 'Remote Monitoring', 'Automated Scheduling', 'Energy Reports'],
-      savings: 'Optimize comfort & efficiency',
-      price: 'From $800'
-    },
-    {
-      id: 'air-quality',
-      title: 'Indoor Air Quality',
-      icon: '🌬️',
-      description: 'Enhance your system with advanced filtration and air purification.',
-      features: ['HEPA Filtration', 'UV Air Purifiers', 'Humidity Control', 'Ventilation Upgrades'],
-      savings: 'Healthier indoor environment',
-      price: 'From $1,200'
-    },
-    {
-      id: 'ductwork',
-      title: 'Ductwork Modernization',
-      icon: '🔧',
-      description: 'Seal, insulate, and optimize your ductwork for better performance.',
-      features: ['Duct Sealing', 'Insulation Upgrade', 'Airflow Optimization', 'Leak Detection'],
-      savings: 'Improve system efficiency by 30%',
-      price: 'From $1,800'
-    }
-  ]
-
-  const savingsCalculator = {
-    cooling: { current: 280, upgraded: 168, savings: 112 },
-    heating: { current: 320, upgraded: 192, savings: 128 },
-    combined: { current: 600, upgraded: 360, savings: 240 }
-  }
+  // state & data moved to individual components / data files
 
   return (
     <>
       {/* Hero Section */}
-      <section className="retrofit-hero bg-gradient-to-br from-green-600 to-blue-600 text-white pt-24 pb-16">
-        <div className="retrofit-hero__container container mx-auto px-4 text-center">
-          <h1 className="retrofit-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            HVAC System Retrofits & Upgrades
-          </h1>
-          <p className="retrofit-hero__subtitle text-lg md:text-xl max-w-2xl mx-auto mb-8">
-            Transform your existing HVAC system with modern upgrades that boost efficiency, 
-            reduce costs, and improve comfort without full replacement.
-          </p>
-          <div className="retrofit-hero__benefits flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <div className="retrofit-hero__benefit flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-              <DollarSign className="w-5 h-5" />
-              <span className="font-medium">Save 20-40% on Energy Bills</span>
-            </div>
-            <div className="retrofit-hero__benefit flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-              <Leaf className="w-5 h-5" />
-              <span className="font-medium">Eco-Friendly Solutions</span>
-            </div>
-            <div className="retrofit-hero__benefit flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-              <TrendingUp className="w-5 h-5" />
-              <span className="font-medium">Increase Home Value</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <RetrofitHero />
 
       {/* Quick Assessment CTA */}
-      <section className="retrofit-assessment py-8 bg-orange-500 text-white">
-        <div className="retrofit-assessment__container container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="retrofit-assessment__content text-center md:text-left">
-              <h2 className="retrofit-assessment__title text-xl md:text-2xl font-bold mb-2">
-                Free Energy Efficiency Assessment
-              </h2>
-              <p className="retrofit-assessment__text">
-                Discover how much you could save with our professional system evaluation.
-              </p>
-            </div>
-            <div className="retrofit-assessment__actions flex flex-col sm:flex-row gap-3">
-              <a 
-                href="/contact" 
-                className="retrofit-assessment__schedule bg-white text-orange-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-              >
-                Schedule Assessment
-              </a>
-              <a 
-                href="tel:5551234567" 
-                className="retrofit-assessment__phone border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-500 transition-colors flex items-center gap-2"
-              >
-                <Phone className="w-4 h-4" />
-                (555) 123-4567
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <RetrofitAssessment />
 
       {/* Savings Calculator */}
-      <section className="retrofit-calculator py-16 bg-white">
-        <div className="retrofit-calculator__container container mx-auto px-4">
-          <h2 className="retrofit-calculator__title text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8">
-            Calculate Your Potential Savings
-          </h2>
-          <div className="retrofit-calculator__content bg-gray-50 rounded-lg p-8 max-w-4xl mx-auto">
-            <div className="retrofit-calculator__tabs flex justify-center gap-4 mb-8">
-              {[
-                { id: 'cooling', label: 'Cooling Only', icon: '❄️' },
-                { id: 'heating', label: 'Heating Only', icon: '🔥' },
-                { id: 'combined', label: 'Year-Round', icon: '🏠' }
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setSelectedCalculator(tab.id)}
-                  className={`retrofit-calculator__tab px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 ${
-                    selectedCalculator === tab.id
-                      ? 'retrofit-calculator__tab_active bg-green-600 text-white'
-                      : 'retrofit-calculator__tab_inactive bg-white text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <span>{tab.icon}</span>
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-            
-            <div className="retrofit-calculator__results grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-              <div className="retrofit-calculator__current bg-red-50 rounded-lg p-6">
-                <h3 className="retrofit-calculator__result-title text-lg font-semibold text-gray-800 mb-2">
-                  Current Monthly Cost
-                </h3>
-                <div className="retrofit-calculator__amount text-3xl font-bold text-red-600 mb-2">
-                  ${savingsCalculator[selectedCalculator].current}
-                </div>
-                <p className="retrofit-calculator__note text-sm text-gray-600">Based on average usage</p>
-              </div>
-              
-              <div className="retrofit-calculator__upgraded bg-green-50 rounded-lg p-6">
-                <h3 className="retrofit-calculator__result-title text-lg font-semibold text-gray-800 mb-2">
-                  After Retrofit
-                </h3>
-                <div className="retrofit-calculator__amount text-3xl font-bold text-green-600 mb-2">
-                  ${savingsCalculator[selectedCalculator].upgraded}
-                </div>
-                <p className="retrofit-calculator__note text-sm text-gray-600">With efficiency upgrades</p>
-              </div>
-              
-              <div className="retrofit-calculator__savings bg-blue-50 rounded-lg p-6">
-                <h3 className="retrofit-calculator__result-title text-lg font-semibold text-gray-800 mb-2">
-                  Monthly Savings
-                </h3>
-                <div className="retrofit-calculator__amount text-3xl font-bold text-blue-600 mb-2">
-                  ${savingsCalculator[selectedCalculator].savings}
-                </div>
-                <p className="retrofit-calculator__note text-sm text-gray-600">
-                  ${savingsCalculator[selectedCalculator].savings * 12}/year savings
-                </p>
-              </div>
-            </div>
-            
-            <div className="retrofit-calculator__cta text-center mt-8">
-              <a 
-                href="/contact" 
-                className="retrofit-calculator__quote bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
-              >
-                Get Personalized Quote
-                <ArrowRight className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SavingsCalculator />
 
       {/* Retrofit Options */}
       <section className="retrofit-options py-16 bg-gray-50">
