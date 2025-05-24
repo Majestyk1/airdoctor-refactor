@@ -101,10 +101,10 @@ function Projects() {
       {/* Hero Section */}
       <section className="projects-hero bg-brand-gradient text-white pt-24 pb-16">
         <div className="projects-hero__container container mx-auto px-4 text-center">
-          <h1 className="projects-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6 hover:scale-105 transition-transform duration-300 cursor-pointer">
+          <h1 className="projects-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6 hover:scale-105 transition-transform duration-300 cursor-default">
             Our Featured Projects
           </h1>
-          <p className="projects-hero__subtitle text-lg md:text-xl max-w-2xl mx-auto mb-12 hover:scale-105 transition-transform duration-300 cursor-pointer">
+          <p className="projects-hero__subtitle text-lg md:text-xl max-w-2xl mx-auto mb-12 hover:scale-105 transition-transform duration-300 cursor-default">
             See how we've transformed comfort and efficiency for homes and businesses across Central Texas.
           </p>
           

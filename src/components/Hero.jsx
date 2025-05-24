@@ -48,8 +48,8 @@ function Hero() {
               <span className={`hero__badge inline-block mb-4 px-3 py-1 rounded-full text-sm font-semibold ${slide.type === 'industrial' ? 'hero__badge--industrial bg-gray-800' : 'hero__badge--community bg-blue-600'}`}>
                 {slide.type === 'industrial' ? 'Industrial Solutions' : 'Community Services'}
               </span>
-              <h1 className="hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-4 hover:scale-105 transition-transform duration-300 cursor-pointer">{slide.title}</h1>
-              <p className="hero__description text-lg md:text-xl mb-6 text-white/90 hover:scale-105 transition-transform duration-300 cursor-pointer">{slide.description}</p>
+              <h1 className="hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-4 hover:scale-105 transition-transform duration-300 cursor-default">{slide.title}</h1>
+              <p className="hero__description text-lg md:text-xl mb-6 text-white/90 hover:scale-105 transition-transform duration-300 cursor-default">{slide.description}</p>
               <div className="hero__actions flex flex-col sm:flex-row gap-4">
                 <Link to={slide.ctaLink} className={`hero__cta px-6 py-3 text-white rounded-md text-center transition-colors ${slide.type === 'industrial' ? 'hero__cta--industrial bg-gray-800 hover:bg-gray-700' : 'hero__cta--community bg-blue-600 hover:bg-blue-700'}`} tabIndex="0" aria-label={slide.cta}>
                   {slide.cta}

@@ -44,10 +44,10 @@ function Service() {
       {/* Hero Section */}
       <section className="service-hero bg-brand-gradient text-white pt-24 pb-16">
         <div className="service-hero__container container mx-auto px-4 text-center">
-          <h1 className="service-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6 hover:scale-105 transition-transform duration-300 cursor-pointer">
+          <h1 className="service-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6 hover:scale-105 transition-transform duration-300 cursor-default">
             Professional HVAC Services
           </h1>
-          <p className="service-hero__subtitle text-lg md:text-xl max-w-2xl mx-auto mb-8 hover:scale-105 transition-transform duration-300 cursor-pointer">
+          <p className="service-hero__subtitle text-lg md:text-xl max-w-2xl mx-auto mb-8 hover:scale-105 transition-transform duration-300 cursor-default">
             Expert repair, maintenance, and emergency services for all your heating and cooling needs. 
             Available 24/7 throughout Central Texas.
           </p>
