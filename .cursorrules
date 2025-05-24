@@ -412,3 +412,96 @@ This adds a blue background and border when the card is selected. The BEM modifi
 
 Remember: Always use the BEM naming convention `.block__element_modifier` with single underscores for modifiers. This keeps our codebase consistent and maintainable.
 
+## 12. File Organization & Component Structure
+
+### Managing Large Components
+When components grow beyond 200-300 lines, break them down for better maintainability:
+
+### Break into Smaller Components
+```jsx
+// Instead of one large page file, extract reusable sections:
+import SavingsCalculator from '../components/SavingsCalculator'
+import ProcessTimeline from '../components/ProcessTimeline'
+import CustomerResults from '../components/CustomerResults'
+
+function RetrofitPage() {
+  return (
+    <>
+      <HeroSection />
+      <SavingsCalculator />
+      <ProcessTimeline />
+      <CustomerResults />
+      <BottomCTA />
+    </>
+  )
+}
+```
+
+### Keep Pages Focused
+- **Fewer sections, more impact** - Aim for 5-7 main sections per page
+- **Quality over quantity** - Better to have 3 great sections than 8 mediocre ones
+- **Mobile-first content** - If it's hard to scan on mobile, it's too long
+
+### Extract Data into Separate Files
+```jsx
+// Create data files for reusable content:
+// src/data/retrofitData.js
+export const retrofitOptions = [
+  {
+    id: 'efficiency',
+    title: 'Energy Efficiency Upgrades',
+    features: ['High-Efficiency Units', 'Smart Thermostats'],
+    price: 'From $2,500'
+  }
+  // ... more options
+]
+
+// Then import in components:
+import { retrofitOptions } from '../data/retrofitData'
+```
+
+### Component File Structure
+```
+src/
+├── components/
+│   ├── common/          # Shared UI components
+│   │   ├── Button.jsx
+│   │   ├── Card.jsx
+│   │   └── Modal.jsx
+│   ├── sections/        # Page section components
+│   │   ├── HeroSection.jsx
+│   │   ├── ProcessTimeline.jsx
+│   │   └── SavingsCalculator.jsx
+│   └── forms/           # Form-specific components
+├── data/                # Static data and configuration
+│   ├── servicesData.js
+│   ├── teamData.js
+│   └── pricingData.js
+└── pages/               # Main route components (keep lean)
+    ├── Home.jsx
+    ├── Service.jsx
+    └── Contact.jsx
+```
+
+### Component Size Guidelines
+- **Pages**: 150-250 lines max (mostly composition)
+- **Section Components**: 100-200 lines (focused functionality)
+- **UI Components**: 50-150 lines (single responsibility)
+- **Data Files**: Any size (just data, no logic)
+
+### When to Extract Components
+- ✅ **Reusable logic** - Used in multiple places
+- ✅ **Complex interactions** - State management or calculations
+- ✅ **Large data sets** - Maps, lists, or configuration
+- ✅ **Testing needs** - Easier to test isolated components
+- ❌ **Single use** - Don't extract unless there's clear benefit
+
+### Refactoring Strategy
+1. **Identify reusable sections** - Look for patterns across pages
+2. **Extract data first** - Move static content to data files
+3. **Create section components** - Break pages into logical sections
+4. **Build common components** - Extract shared UI elements
+5. **Keep pages as composition** - Pages should mostly import and arrange components
+
+This approach keeps individual files manageable while maintaining the power and functionality of complex pages.
+
