@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
-import ThemeToggle from './ThemeToggle'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -28,14 +27,14 @@ function Navbar({ isOpen, onToggle, onClose }) {
   return (
     <header className={`navbar fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
       isScrolled
-        ? 'navbar--scrolled bg-white dark:bg-gray-800 shadow-md py-2'
+        ? 'navbar--scrolled bg-white shadow-md py-2'
         : 'navbar--transparent bg-transparent py-4'
     }`}>
       <div className="navbar__container flex items-center justify-between max-w-7xl mx-auto px-4">
         {/* Logo */}
         <Link to="/" className={`navbar__logo text-lg font-bold transition-colors ${
           isScrolled
-            ? 'navbar__logo--scrolled text-blue-600 dark:text-yellow-400'
+            ? 'navbar__logo--scrolled text-blue-600'
             : 'navbar__logo--transparent text-white'
         }`}>AirDoctorHVAC</Link>
         {/* Desktop Nav */}
@@ -46,7 +45,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
               to={to} 
               className={`navbar__link text-sm font-medium transition-colors ${
                 isScrolled
-                  ? 'navbar__link--scrolled text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-yellow-400'
+                  ? 'navbar__link--scrolled text-gray-700 hover:text-blue-600'
                   : 'navbar__link--transparent text-white hover:text-white/80'
               }`} 
               onClick={onClose}
@@ -55,14 +54,13 @@ function Navbar({ isOpen, onToggle, onClose }) {
             </Link>
           ))}
         </nav>
-        {/* Toogle, CTA + Hamburger */}
+        {/* CTA + Hamburger */}
         <div className="navbar__actions flex items-center gap-4 md:gap-6">
-          <ThemeToggle />
           <a 
             href="tel:5551234567" 
             className={`navbar__cta-phone hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors ${
               isScrolled
-                ? 'navbar__cta-phone--scrolled text-blue-600 hover:text-blue-700 dark:text-yellow-300 dark:hover:text-yellow-200'
+                ? 'navbar__cta-phone--scrolled text-blue-600 hover:text-blue-700'
                 : 'navbar__cta-phone--transparent text-white hover:text-white/80'
             }`} 
             aria-label="Call 555-123-4567"
@@ -74,7 +72,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
             onClick={onToggle} 
             className={`navbar__menu-toggle md:hidden p-2 bg-transparent border-none cursor-pointer ${
               isScrolled
-                ? 'navbar__menu-toggle--scrolled text-gray-800 dark:text-gray-200'
+                ? 'navbar__menu-toggle--scrolled text-gray-800'
                 : 'navbar__menu-toggle--transparent text-white'
             }`} 
             aria-label="Toggle navigation" 
@@ -87,7 +85,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
       </div>
       {/* Mobile Drawer */}
       <div className={`navbar__overlay fixed backdrop-blur-sm inset-0 bg-black/60 transition-opacity z-40 ${isOpen ? 'navbar__overlay--open opacity-100 pointer-events-auto' : 'navbar__overlay--closed opacity-0 pointer-events-none'}`} onClick={onClose} />
-      <aside className={`navbar__drawer fixed inset-y-0 right-0 w-3/4 max-w-xs bg-white dark:bg-gray-800 p-6 transition-transform z-50 ${isOpen ? 'navbar__drawer--open translate-x-0' : 'navbar__drawer--closed translate-x-full'}`} aria-label="Mobile navigation" onClick={(e)=>e.stopPropagation()}>
+      <aside className={`navbar__drawer fixed inset-y-0 right-0 w-3/4 max-w-xs bg-white p-6 transition-transform z-50 ${isOpen ? 'navbar__drawer--open translate-x-0' : 'navbar__drawer--closed translate-x-full'}`} aria-label="Mobile navigation" onClick={(e)=>e.stopPropagation()}>
         <nav className="navbar__mobile-nav flex flex-col gap-4">
           {links.map(({ to, label }) => (
             <Link key={to} to={to} className="navbar__mobile-link text-lg font-medium py-2 border-b border-gray-100 text-gray-800 no-underline" onClick={onClose}>
