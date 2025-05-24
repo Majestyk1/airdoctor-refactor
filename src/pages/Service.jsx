@@ -42,7 +42,7 @@ function Service() {
   return (
     <>
       {/* Hero Section */}
-      <section className="service-hero bg-gradient-to-br from-blue-600 to-blue-700 text-white pt-24 pb-16">
+      <section className="service-hero bg-brand-gradient text-white pt-24 pb-16">
         <div className="service-hero__container container mx-auto px-4 text-center">
           <h1 className="service-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             Professional HVAC Services

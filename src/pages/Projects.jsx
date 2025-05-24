@@ -99,7 +99,7 @@ function Projects() {
   return (
     <>
       {/* Hero Section */}
-      <section className="projects-hero bg-gradient-to-br from-blue-600 to-green-600 text-white pt-24 pb-16">
+      <section className="projects-hero bg-brand-gradient text-white pt-24 pb-16">
         <div className="projects-hero__container container mx-auto px-4 text-center">
           <h1 className="projects-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             Our Featured Projects

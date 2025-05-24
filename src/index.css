@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .bg-brand-gradient {
+    @apply bg-gradient-to-br from-blue-600 to-green-600;
+  }
+}

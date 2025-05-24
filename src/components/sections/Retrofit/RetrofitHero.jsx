@@ -2,7 +2,7 @@ import { DollarSign, Leaf, TrendingUp } from 'lucide-react'
 
 function RetrofitHero() {
   return (
-    <section className="retrofit-hero bg-gradient-to-br from-green-600 to-blue-600 text-white pt-24 pb-16">
+    <section className="retrofit-hero bg-brand-gradient text-white pt-24 pb-16">
       <div className="retrofit-hero__container container mx-auto px-4 text-center">
         <h1 className="retrofit-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
           HVAC System Retrofits &amp; Upgrades
