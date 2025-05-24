@@ -16,7 +16,11 @@ function App() {
   return (
     <Router>
       <div className="app min-h-screen flex flex-col">
-        <Navbar isOpen={isNavOpen} onToggle={handleToggleNav} onClose={handleCloseNav} />
+        <Navbar 
+        isOpen={isNavOpen} 
+        onToggle={handleToggleNav}
+         onClose={handleCloseNav}
+          />
         <main className="app__main w-full overflow-x-hidden flex-1">
           <Routes>
             <Route path="/" element={<Home />} />

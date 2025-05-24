@@ -13,14 +13,12 @@ const links = [
 ]
 
 function Navbar({ isOpen, onToggle, onClose }) {
-  // Determine if page is scrolled for styling
   const [isScrolled, setIsScrolled] = useState(false)
 
   const handleScroll = () => {
     setIsScrolled(window.scrollY > 50)
   }
 
-  // Add scroll listener once on mount
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)

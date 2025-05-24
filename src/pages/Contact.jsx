@@ -28,18 +28,6 @@ function Contact() {
 
   return (
     <>
-      {/* Emergency Banner */}
-      <div className="contact-emergency bg-red-600 text-white py-3">
-        <div className="contact-emergency__container container mx-auto px-4 text-center">
-          <p className="contact-emergency__text text-sm md:text-base">
-            <strong>HVAC Emergency?</strong> Call us now: 
-            <a href="tel:5551234567" className="contact-emergency__phone ml-2 font-bold underline hover:no-underline">
-              (555) 123-4567
-            </a>
-          </p>
-        </div>
-      </div>
-
       {/* Hero Section */}
       <section className="contact-hero bg-gradient-to-br from-blue-600 to-blue-700 text-white pt-24 pb-16">
         <div className="contact-hero__container container mx-auto px-4 text-center">
