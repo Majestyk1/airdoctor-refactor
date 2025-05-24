@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // Components
 import Navbar from './components/Navbar.jsx'
+import ScrollToTop from './components/ScrollToTop.jsx'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="app min-h-screen flex flex-col">
       
         <Navbar 
