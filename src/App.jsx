@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // Components
 import Navbar from './components/Navbar.jsx'
 import Home from './pages/Home.jsx'
+import About from './pages/About.jsx'
 
 function App() {
   // Navigation open state for mobile drawer
@@ -18,6 +19,7 @@ function App() {
         <main className="app__main w-full overflow-x-hidden flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
             {/* Future routes can be added here */}
           </Routes>
         </main>
