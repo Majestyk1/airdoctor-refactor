@@ -4,10 +4,10 @@ function About() {
         {/* Hero Section */}
         <section className="about-hero bg-brand-gradient text-white pt-24 pb-16">
           <div className="about-hero__container container mx-auto px-4 text-center">
-            <h1 className="about-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <h1 className="about-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6 hover:scale-105 transition-transform duration-300 cursor-pointer">
               About AirDoctorHVAC
             </h1>
-            <p className="about-hero__subtitle text-lg md:text-xl max-w-2xl mx-auto">
+            <p className="about-hero__subtitle text-lg md:text-xl max-w-2xl mx-auto hover:scale-105 transition-transform duration-300 cursor-pointer">
               Your trusted HVAC experts with over 15 years of experience keeping homes and businesses comfortable year-round.
             </p>
           </div>

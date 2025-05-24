@@ -41,10 +41,10 @@ function Installation() {
       {/* Hero Section */}
       <section className="installation-hero bg-brand-gradient text-white pt-24 pb-16">
         <div className="installation-hero__container container mx-auto px-4 text-center">
-          <h1 className="installation-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+          <h1 className="installation-hero__title text-3xl md:text-4xl lg:text-5xl font-bold mb-6 hover:scale-105 transition-transform duration-300 cursor-pointer">
             Professional HVAC Installation
           </h1>
-          <p className="installation-hero__subtitle text-lg md:text-xl max-w-2xl mx-auto mb-8">
+          <p className="installation-hero__subtitle text-lg md:text-xl max-w-2xl mx-auto mb-8 hover:scale-105 transition-transform duration-300 cursor-pointer">
             New system installation for homes and businesses. Energy-efficient solutions 
             with professional installation and comprehensive warranties.
           </p>
