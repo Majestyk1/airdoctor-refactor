@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
 import Service from './pages/Service.jsx'
+import Installation from './pages/Installation.jsx'
 
 function App() {
   // Navigation open state for mobile drawer
@@ -28,6 +29,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/service" element={<Service />} />
+            <Route path="/installation" element={<Installation />} />
             {/* Future routes can be added here */}
           </Routes>
         </main>
