@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
+import '../styles/blocks/Navbar.css'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -27,17 +28,17 @@ function Navbar({ isOpen, onToggle, onClose }) {
   }, [])
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow py-2' : 'bg-transparent py-4'}`}>
-      <div className="flex items-center justify-between max-w-screen-xl mx-auto px-4">
+    <header className={`navbar ${isScrolled ? 'navbar--scrolled' : 'navbar--transparent'}`}>
+      <div className="navbar__container">
         {/* Logo */}
-        <Link to="/" className={`text-lg font-bold ${isScrolled ? 'text-blue-600' : 'text-white'}`}>AirDoctorHVAC</Link>
+        <Link to="/" className={`navbar__logo ${isScrolled ? 'navbar__logo--scrolled' : 'navbar__logo--transparent'}`}>AirDoctorHVAC</Link>
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="navbar__desktop-nav">
           {links.map(({ to, label }) => (
             <Link 
               key={to} 
               to={to} 
-              className={`text-sm font-medium transition-colors ${isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-white/80'}`} 
+              className={`navbar__link ${isScrolled ? 'navbar__link--scrolled' : 'navbar__link--transparent'}`} 
               onClick={onClose}
             >
               {label}
@@ -45,42 +46,42 @@ function Navbar({ isOpen, onToggle, onClose }) {
           ))}
         </nav>
         {/* CTA + Hamburger */}
-        <div className="flex items-center space-x-4 md:space-x-6">
+        <div className="navbar__actions">
           <a 
             href="tel:5551234567" 
-            className={`hidden md:inline-flex items-center gap-2 text-sm font-medium ${isScrolled ? 'text-blue-600 hover:text-blue-700' : 'text-white hover:text-white/80'}`} 
+            className={`navbar__cta-phone ${isScrolled ? 'navbar__cta-phone--scrolled' : 'navbar__cta-phone--transparent'}`} 
             aria-label="Call 555-123-4567"
           >
-            <Phone className="w-4 h-4" />
+            <Phone className="navbar__cta-phone-icon" />
             <span>24/7</span>
           </a>
           <button 
             onClick={onToggle} 
-            className={`md:hidden p-2 ${isScrolled ? 'text-gray-800' : 'text-white'}`} 
+            className={`navbar__menu-toggle ${isScrolled ? 'navbar__menu-toggle--scrolled' : 'navbar__menu-toggle--transparent'}`} 
             aria-label="Toggle navigation" 
             tabIndex="0" 
             onKeyDown={(e)=>{if(e.key==='Enter'){onToggle()}}}
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="navbar__menu-icon" /> : <Menu className="navbar__menu-icon" />}
           </button>
         </div>
       </div>
       {/* Mobile Drawer */}
-      <div className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity z-40 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
-      <aside className={`fixed inset-y-0 right-0 w-3/4 max-w-xs bg-white p-6 transition-transform z-50 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`} aria-label="Mobile navigation" onClick={(e)=>e.stopPropagation()}>
-        <nav className="flex flex-col space-y-4">
+      <div className={`navbar__overlay ${isOpen ? 'navbar__overlay--open' : 'navbar__overlay--closed'}`} onClick={onClose} />
+      <aside className={`navbar__drawer ${isOpen ? 'navbar__drawer--open' : 'navbar__drawer--closed'}`} aria-label="Mobile navigation" onClick={(e)=>e.stopPropagation()}>
+        <nav className="navbar__mobile-nav">
           {links.map(({ to, label }) => (
-            <Link key={to} to={to} className="text-lg font-medium py-2 border-b border-gray-100" onClick={onClose}>
+            <Link key={to} to={to} className="navbar__mobile-link" onClick={onClose}>
               {label}
             </Link>
           ))}
         </nav>
-        <div className="mt-8 space-y-4">
-          <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700" onClick={onClose} tabIndex="0" aria-label="Request a Quote" onKeyDown={(e)=>{if(e.key==='Enter'){onClose()}}}>
+        <div className="navbar__drawer-actions">
+          <button className="navbar__drawer-quote-btn" onClick={onClose} tabIndex="0" aria-label="Request a Quote" onKeyDown={(e)=>{if(e.key==='Enter'){onClose()}}}>
             Request a Quote
           </button>
-          <a href="tel:5551234567" className="w-full flex items-center justify-center gap-2 border border-blue-600 text-blue-600 py-3 rounded-lg" aria-label="Emergency phone" onClick={onClose}>
-            <Phone className="h-4 w-4" />
+          <a href="tel:5551234567" className="navbar__drawer-emergency" aria-label="Emergency phone" onClick={onClose}>
+            <Phone className="navbar__drawer-emergency-icon" />
             24/7 Emergency
           </a>
         </div>

@@ -1,0 +1,65 @@
+/* ServiceCard Block */
+.service-card {
+  border: 1px solid rgb(229, 231, 235);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  background-color: white;
+  transition: box-shadow 150ms;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.service-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.service-card__icon-wrapper {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 9999px;
+  background-color: rgb(239, 246, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.service-card__icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: rgb(37, 99, 235);
+}
+
+.service-card__title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  flex: 0;
+}
+
+.service-card__description {
+  color: rgb(75, 85, 99);
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.service-card__link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgb(37, 99, 235);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 150ms;
+}
+
+.service-card__link:hover {
+  color: rgb(29, 78, 216);
+}
+
+.service-card__link-icon {
+  height: 1rem;
+  width: 1rem;
+} 

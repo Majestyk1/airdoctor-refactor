@@ -1,0 +1,8 @@
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
+
+/* Import all block files */
+@import "./blocks/hero.css";
+@import "./blocks/navbar.css";
+@import "./blocks/service-card.css";
+@import "./blocks/home.css"; 

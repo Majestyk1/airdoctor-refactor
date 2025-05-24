@@ -1,0 +1,166 @@
+/* Hero Block */
+.hero {
+  position: relative;
+  height: 90vh;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    height: 80vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    height: 80vh;
+  }
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  transition: opacity 1000ms;
+}
+
+.hero__slide--active {
+  opacity: 1;
+}
+
+.hero__slide--inactive {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 1.5rem;
+  z-index: 20;
+}
+
+@media (min-width: 768px) {
+  .hero__content {
+    padding: 0 3rem;
+  }
+}
+
+.hero__inner {
+  color: white;
+  max-width: 36rem;
+}
+
+.hero__badge {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.hero__badge--industrial {
+  background-color: rgb(31, 41, 55);
+}
+
+.hero__badge--community {
+  background-color: rgb(37, 99, 235);
+}
+
+.hero__title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .hero__title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero__title {
+    font-size: 3rem;
+  }
+}
+
+.hero__description {
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (min-width: 768px) {
+  .hero__description {
+    font-size: 1.25rem;
+  }
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .hero__actions {
+    flex-direction: row;
+  }
+}
+
+.hero__cta {
+  padding: 0.75rem 1.5rem;
+  color: white;
+  border-radius: 0.375rem;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 150ms;
+}
+
+.hero__cta--industrial {
+  background-color: rgb(31, 41, 55);
+}
+
+.hero__cta--industrial:hover {
+  background-color: rgb(55, 65, 81);
+}
+
+.hero__cta--community {
+  background-color: rgb(37, 99, 235);
+}
+
+.hero__cta--community:hover {
+  background-color: rgb(29, 78, 216);
+}
+
+.hero__secondary-cta {
+  padding: 0.75rem 1.5rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 0.375rem;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 150ms;
+}
+
+.hero__secondary-cta:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+} 

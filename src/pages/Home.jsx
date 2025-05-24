@@ -1,15 +1,16 @@
 import Hero from '../components/Hero.jsx'
 import ServiceCard from '../components/ServiceCard.jsx'
+import '../styles/blocks/Home.css'
 
 function Home() {
   return (
     <>
       <Hero />
       {/* Services Section */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Our Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section className="home-services">
+        <div className="home-services__container">
+          <h2 className="home-services__title">Our Services</h2>
+          <div className="home-services__grid">
             <ServiceCard
               title="HVAC Service"
               description="Regular maintenance and emergency repairs for all HVAC systems. Keep your system running efficiently year-round."
