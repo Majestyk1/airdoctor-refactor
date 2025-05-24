@@ -1,8 +1,0 @@
-/* Navbar Block - Only unique styles, Tailwind handles the rest */
-
-/* Keep backdrop-filter as it's a specific value */
-.navbar__overlay {
-  backdrop-filter: blur(4px);
-}
-
-/* All other styles now handled by Tailwind utilities in JSX */

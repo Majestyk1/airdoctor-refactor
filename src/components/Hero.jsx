@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import heroImg1 from '../assets/test.jpg'
 import heroImg2 from '../assets/test1.jpg'
-import '../styles/blocks/Hero.css'
 
 const slides = [
   {

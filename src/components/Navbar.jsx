@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
-import '../styles/blocks/Navbar.css'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -67,7 +66,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
         </div>
       </div>
       {/* Mobile Drawer */}
-      <div className={`navbar__overlay fixed inset-0 bg-black/60 transition-opacity z-40 ${isOpen ? 'navbar__overlay--open opacity-100 pointer-events-auto' : 'navbar__overlay--closed opacity-0 pointer-events-none'}`} onClick={onClose} />
+      <div className={`navbar__overlay fixed backdrop-blur-sm inset-0 bg-black/60 transition-opacity z-40 ${isOpen ? 'navbar__overlay--open opacity-100 pointer-events-auto' : 'navbar__overlay--closed opacity-0 pointer-events-none'}`} onClick={onClose} />
       <aside className={`navbar__drawer fixed inset-y-0 right-0 w-3/4 max-w-xs bg-white p-6 transition-transform z-50 ${isOpen ? 'navbar__drawer--open translate-x-0' : 'navbar__drawer--closed translate-x-full'}`} aria-label="Mobile navigation" onClick={(e)=>e.stopPropagation()}>
         <nav className="navbar__mobile-nav flex flex-col gap-4">
           {links.map(({ to, label }) => (

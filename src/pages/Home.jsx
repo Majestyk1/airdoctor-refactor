@@ -1,6 +1,5 @@
 import Hero from '../components/Hero.jsx'
 import ServiceCard from '../components/ServiceCard.jsx'
-import '../styles/blocks/Home.css'
 
 function Home() {
   return (

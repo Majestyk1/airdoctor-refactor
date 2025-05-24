@@ -121,3 +121,68 @@ Shadows:
 -Apply these mobile-first Tailwind rules when writing each component (e.g. Hero.jsx, ServiceCard.jsx).
 -Use Brave MCP to research any specific responsive patterns or component examples when needed.
 
+9. BEM + Tailwind Hybrid Approach
+
+BEM Class Structure
+
+-Adopt BEM-style class names throughout for greater readability and modularity.
+-Block: Component name (e.g., `navbar`, `hero`, `service-card`)
+-Element: Sub-parts using `__` (e.g., `navbar__logo`, `hero__title`, `service-card__icon`)
+-Modifier: Variations using `--` (e.g., `navbar--scrolled`, `hero__slide--active`)
+
+Hybrid Implementation
+
+-Use BEM classes for semantic structure and component identity
+-Combine with Tailwind utility classes for all visual styling
+-Example: `className="navbar__logo text-lg font-bold text-blue-600"`
+
+CSS File Strategy
+
+-Keep CSS files minimal - only for complex/unique styles that Tailwind can't handle
+-Most components can have empty CSS files with just BEM structure comments
+-Eliminate redundant styles that Tailwind utilities cover
+
+Tailwind Utilities Priority
+
+-Layout: `flex`, `grid`, `absolute`, `relative`
+-Spacing: `p-*`, `m-*`, `gap-*`, `space-*`
+-Typography: `text-*`, `font-*`, `leading-*`
+-Colors: `bg-*`, `text-*`, `border-*`
+-States: `hover:*`, `focus:*`, `active:*`
+-Responsive: `sm:*`, `md:*`, `lg:*`, `xl:*`
+
+Custom Utilities
+
+-Where a standard utility doesn't exist, add custom Tailwind utilities and document them
+-Use `backdrop-blur-sm` for `blur(4px)` effects
+-Define custom utilities in `tailwind.config.js` when needed
+
+Example Component Structure
+
+```jsx
+// BEM structure with Tailwind utilities
+<div className="service-card border rounded-lg p-6 bg-white hover:shadow-md">
+  <div className="service-card__icon-wrapper h-12 w-12 rounded-full bg-blue-50 flex items-center justify-center mb-4">
+    <Icon className="service-card__icon h-6 w-6 text-blue-600" />
+  </div>
+  <h3 className="service-card__title text-xl font-bold mb-3">{title}</h3>
+  <p className="service-card__description text-gray-600 mb-4 flex-1">{description}</p>
+</div>
+```
+
+Benefits
+
+-Semantic HTML with clear component structure (BEM)
+-Rapid development with utility classes (Tailwind)
+-Minimal CSS files - most styling in JSX
+-Consistent design system through Tailwind tokens
+-Easy maintenance and refactoring
+
+Implementation Results
+
+-App.css: Deleted (Tailwind handles layout)
+-Hero.css: Deleted (backdrop-blur-sm replaces custom blur)
+-Navbar.css: Deleted (254 lines → 0 lines with Tailwind)
+-ServiceCard.css: Deleted (65 lines → 0 lines with Tailwind)
+-Home.css: Deleted (Tailwind handles grid and typography)
+-Total reduction: ~400+ lines of CSS eliminated

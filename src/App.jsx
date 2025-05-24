@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 // Components
 import Navbar from './components/Navbar.jsx'
 import Home from './pages/Home.jsx'
-// Styles
-import './styles/blocks/App.css'
 
 function App() {
   // Navigation open state for mobile drawer

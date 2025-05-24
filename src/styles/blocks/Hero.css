@@ -1,8 +1,0 @@
-/* Hero Block - Only unique/complex styles, Tailwind handles the rest */
-
-/* Keep backdrop-filter as Tailwind's backdrop-blur-sm might not be exactly the same */
-.hero__secondary-cta {
-  backdrop-filter: blur(4px);
-}
-
-/* All other styles are now handled by Tailwind utilities */ 
