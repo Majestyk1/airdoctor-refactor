@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
+import ThemeToggle from './ThemeToggle'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -42,8 +43,9 @@ function Navbar({ isOpen, onToggle, onClose }) {
             </Link>
           ))}
         </nav>
-        {/* CTA + Hamburger */}
+        {/* Toogle, CTA + Hamburger */}
         <div className="navbar__actions flex items-center gap-4 md:gap-6">
+          <ThemeToggle />
           <a 
             href="tel:5551234567" 
             className={`navbar__cta-phone hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors ${isScrolled ? 'navbar__cta-phone--scrolled text-blue-600 hover:text-blue-700' : 'navbar__cta-phone--transparent text-white hover:text-white/80'}`} 

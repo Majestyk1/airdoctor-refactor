@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@layer base {
+    /* Page background + default text */
+    body {
+      @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+    }
+  
+    /* Links: blue in light, gold-ish in dark */
+    a {
+      @apply text-blue-600 hover:text-blue-700 transition-colors;
+    }
+    a:where(.dark *) {
+      @apply text-yellow-400 hover:text-yellow-300;
+    }
+  }
