@@ -8,6 +8,7 @@ import Contact from './pages/Contact.jsx'
 import Service from './pages/Service.jsx'
 import Installation from './pages/Installation.jsx'
 import Retrofit from './pages/Retrofit.jsx'
+import Projects from './pages/Projects.jsx'
 
 function App() {
   // Navigation open state for mobile drawer
@@ -32,6 +33,7 @@ function App() {
             <Route path="/service" element={<Service />} />
             <Route path="/installation" element={<Installation />} />
             <Route path="/retrofit" element={<Retrofit />} />
+            <Route path="/projects" element={<Projects />} />
             {/* Future routes can be added here */}
           </Routes>
         </main>
