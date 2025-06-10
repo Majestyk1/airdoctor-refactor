@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 // Components
 import Navbar from './components/Navbar.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
@@ -38,7 +38,8 @@ function App() {
             <Route path="/installation" element={<Installation />} />
             <Route path="/retrofit" element={<Retrofit />} />
             <Route path="/projects" element={<Projects />} />
-            {/* Future routes can be added here */}
+            {/* Catch-all route for undefined paths - redirects to home */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
         <Footer />
