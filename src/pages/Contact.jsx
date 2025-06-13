@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import emailjs from '@emailjs/browser'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import LocationMap from '../components/common/LacationMap'
 
 function Contact() {
   // Modal state for feedback
@@ -158,6 +159,10 @@ function Contact() {
         </motion.div>
       </section>
 
+      <section className="contact-map py-12">
+        <h2 className="contact-map__title text-2xl font-bold mb-4 text-blue-800">Our Service Area</h2>
+        <LocationMap />
+      </section>
       {/* Modal feedback for success/error */}
       <ModalPortal isOpen={modal.open} onClose={() => setModal(m => ({ ...m, open: false }))}>
         <div className="contact-modal flex flex-col items-center gap-4 p-4">
