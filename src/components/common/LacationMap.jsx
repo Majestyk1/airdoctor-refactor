@@ -1,4 +1,4 @@
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
+import { GoogleMap, Marker, Circle, useJsApiLoader } from '@react-google-maps/api'
 
 const containerStyle = {
   width: '100%',
@@ -7,30 +7,50 @@ const containerStyle = {
   boxShadow: '0 4px 24px 0 rgba(30,30,40,0.15)'
 }
 
-const center = {
-  lat: 29.4241, // Example: San Antonio, TX
-  lng: -98.4936
-}
+// City coordinates
+const sanAntonio = { lat: 29.4241, lng: -98.4936 }
+const austin = { lat: 30.2672, lng: -97.7431 }
 
 function LocationMap() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY // Store your key in .env
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY
   })
 
   return isLoaded ? (
     <div className="location-map rounded-2xl overflow-hidden shadow-lg border border-blue-200/40">
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
-        zoom={12}
+        center={{ lat: 29.845, lng: -98.118 }} // Center between the two cities
+        zoom={8}
         options={{
           disableDefaultUI: true,
           zoomControl: true,
-          styles: [/* Optional: custom map styles for glassy look */]
         }}
       >
-        <Marker position={center} />
+        {/* Markers */}
+        <Marker position={sanAntonio} label="San Antonio" />
+        <Marker position={austin} label="Austin" />
+
+        {/* Circles for service area (about 50 mile radius) */}
+        <Circle
+          center={sanAntonio}
+          radius={80000} // meters (~50 miles)
+          options={{
+            fillColor: '#2563eb55', // semi-transparent Dodgers blue
+            strokeColor: '#2563eb',
+            strokeWeight: 2,
+          }}
+        />
+        <Circle
+          center={austin}
+          radius={80000}
+          options={{
+            fillColor: '#2563eb33',
+            strokeColor: '#2563eb',
+            strokeWeight: 2,
+          }}
+        />
       </GoogleMap>
     </div>
   ) : (
