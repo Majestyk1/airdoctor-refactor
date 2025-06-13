@@ -1,25 +1,96 @@
 import { Mail, Phone, Clipboard, Clock } from 'lucide-react'
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import emailjs from '@emailjs/browser'
+
+function ContactForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isSubmitSuccessful }
+  } = useForm()
+
+  const onSubmit = async (data) => {
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        data,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      // Optionally reset the form or show a success message
+      alert('Message sent successfully!')
+    } catch (error) {
+      alert('Failed to send message. Please try again later.')
+      console.error('EmailJS error:', error)
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="contact-form__form space-y-6">
+      <div className="contact-form__field">
+        <label className="contact-form__label block text-sm font-medium text-gray-700 mb-2">
+          Name
+        </label>
+        <input
+          type="text"
+          {...register('name', { required: 'Name is required' })}
+          className={`contact-form__input w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.name ? 'border-red-400' : 'border-gray-300'}`}
+          placeholder="Your name"
+        />
+        {errors.name && (
+          <span className="contact-form__error text-sm text-red-600 mt-1">{errors.name.message}</span>
+        )}
+      </div>
+      <div className="contact-form__field">
+        <label className="contact-form__label block text-sm font-medium text-gray-700 mb-2">
+          Email
+        </label>
+        <input
+          type="email"
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /^\S+@\S+$/i,
+              message: 'Enter a valid email'
+            }
+          })}
+          className={`contact-form__input w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.email ? 'border-red-400' : 'border-gray-300'}`}
+          placeholder="you@email.com"
+        />
+        {errors.email && (
+          <span className="contact-form__error text-sm text-red-600 mt-1">{errors.email.message}</span>
+        )}
+      </div>
+      <div className="contact-form__field">
+        <label className="contact-form__label block text-sm font-medium text-gray-700 mb-2">
+          Message
+        </label>
+        <textarea
+          {...register('message', { required: 'Message is required' })}
+          className={`contact-form__input w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px] ${errors.message ? 'border-red-400' : 'border-gray-300'}`}
+          placeholder="How can Chris help you?"
+        />
+        {errors.message && (
+          <span className="contact-form__error text-sm text-red-600 mt-1">{errors.message.message}</span>
+        )}
+      </div>
+      <button
+        type="submit"
+        className="contact-form__submit w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? 'Sending...' : 'Send Message'}
+      </button>
+      {isSubmitSuccessful && (
+        <div className="contact-form__success text-green-600 text-center mt-2">
+          Form submitted! (EmailJS coming next)
+        </div>
+      )}
+    </form>
+  )
+}
 
 function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  })
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle form submission here
-    // You can integrate with your backend/email service later
-    alert('Message sent! (Not really, this is a demo.)')
-  }
-
   return (
     <>
       {/* Contact Hero */}
@@ -68,55 +139,7 @@ function Contact() {
           <h2 className="contact-form__title text-2xl md:text-3xl font-bold text-center mb-6 text-blue-800">
             Or, fill out the form below:
           </h2>
-          <form onSubmit={handleSubmit} className="contact-form__form space-y-6">
-            <div className="contact-form__field">
-              <label className="contact-form__label block text-sm font-medium text-gray-700 mb-2">
-                Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="contact-form__input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Your name"
-                required
-              />
-            </div>
-            <div className="contact-form__field">
-              <label className="contact-form__label block text-sm font-medium text-gray-700 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="contact-form__input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="you@email.com"
-                required
-              />
-            </div>
-            <div className="contact-form__field">
-              <label className="contact-form__label block text-sm font-medium text-gray-700 mb-2">
-                Message
-              </label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                className="contact-form__input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[120px]"
-                placeholder="How can Chris help you?"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="contact-form__submit w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              Send Message
-            </button>
-          </form>
+          <ContactForm />
         </div>
       </section>
     </>
