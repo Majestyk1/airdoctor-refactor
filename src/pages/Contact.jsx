@@ -160,7 +160,7 @@ function Contact() {
       </section>
 
       <section className="contact-map py-12">
-        <h2 className="contact-map__title text-2xl font-bold mb-4 text-blue-800">Our Service Area</h2>
+        <h2 className="contact-map__title text-2xl font-bold mb-4 text-blue-800 text-center">Our Service Area</h2>
         <LocationMap />
       </section>
       {/* Modal feedback for success/error */}
