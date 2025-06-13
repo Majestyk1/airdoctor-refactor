@@ -10,8 +10,7 @@ function CTASection({ title, text, children, className = '' }) {
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
-      {/* Blue/purple glow on hover/focus */}
-      <span className="cta-section__glow pointer-events-none absolute -inset-4 z-0 rounded-2xl blur-2xl bg-gradient-to-tr from-blue-400/30 to-purple-400/30 opacity-0 group-hover:opacity-80 group-focus:opacity-80 transition duration-300" />
+      {/* Removed absolute glow to prevent overflow */}
       <motion.div
         className="cta-section__container relative z-10 container mx-auto px-4 backdrop-blur-xl bg-white/60 rounded-2xl shadow-xl border border-blue-200/40 max-w-2xl transition-all duration-300 hover:scale-[1.025] focus-within:scale-[1.025]"
         whileHover={{ scale: 1.025 }}
