@@ -51,33 +51,39 @@ function Contact() {
 
       {/* Info Cards */}
       <section className="contact-info py-12 bg-gradient-to-br from-blue-50 via-white to-blue-100">
-        <div className="contact-info__container container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          <InfoCard
-            avatar={<Mail className="w-10 h-10 text-blue-600" />}
-            name="Email"
-            role="chris@airdoctorhvacr.com"
-            bio={<a href="mailto:chris@airdoctorhvacr.com" className="text-blue-700 font-bold hover:underline">Send Email</a>}
-          />
-          <InfoCard
-            avatar={<Phone className="w-10 h-10 text-blue-600" />}
-            name="Phone"
-            role="210-580-4664"
-            bio={<a href="tel:2105804664" className="text-blue-700 font-bold hover:underline">Call Now</a>}
-          />
-          <InfoCard
-            avatar={<Clipboard className="w-10 h-10 text-blue-600" />}
-            name="License"
-            role="TACLA 131459E"
-            bio="Licensed & Insured"
-          />
-          <InfoCard
-            avatar={<Clock className="w-10 h-10 text-blue-600" />}
-            name="Business Hours"
-            role="Mon-Fri 7:00 AM – 5:00 PM"
-            bio="Available for emergencies"
-          />
-        </div>
-      </section>
+  <div className="contact-info__container container mx-auto px-4">
+    <div className="contact-info__grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
+      <InfoCard
+        avatar={<Mail className="w-10 h-10 text-blue-600" />}
+        name="Email"
+        role="chris@airdoctorhvacr.com"
+        bio={<a href="mailto:chris@airdoctorhvacr.com" className="text-blue-700 font-bold hover:underline">Send Email</a>}
+        className="contact-info__card min-w-[250px] max-w-xs mx-auto"
+      />
+      <InfoCard
+        avatar={<Phone className="w-10 h-10 text-blue-600" />}
+        name="Phone"
+        role="210-580-4664"
+        bio={<a href="tel:2105804664" className="text-blue-700 font-bold hover:underline">Call Now</a>}
+        className="contact-info__card min-w-[250px] max-w-xs mx-auto"
+      />
+      <InfoCard
+        avatar={<Clipboard className="w-10 h-10 text-blue-600" />}
+        name="License"
+        role="TACLA 131459E"
+        bio="Licensed & Insured"
+        className="contact-info__card min-w-[250px] max-w-xs mx-auto"
+      />
+      <InfoCard
+        avatar={<Clock className="w-10 h-10 text-blue-600" />}
+        name="Business Hours"
+        role="Mon-Fri 7:00 AM – 5:00 PM"
+        bio="Available for emergencies"
+        className="contact-info__card min-w-[250px] max-w-xs mx-auto"
+      />
+    </div>
+  </div>
+</section>
 
       {/* Contact Form Card */}
       <section className="contact-form py-16 bg-gradient-to-br from-blue-100 via-white to-blue-50">

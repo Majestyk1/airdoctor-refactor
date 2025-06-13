@@ -3,6 +3,7 @@ import { Wrench, Zap, Building2, Volume2 } from 'lucide-react'
 import HeroSection from '../components/common/HeroSection'
 import ServiceCard from '../components/common/ServiceCard'
 import AnimatedButton from '../components/common/AnimatedButton'
+import { motion } from 'framer-motion'
 
 function Home() {
   return (
@@ -28,7 +29,13 @@ function Home() {
           <Link to="/contact">
             <AnimatedButton className="hero-section__button rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-blue-200/40">
               <span className="hero-section__button-content flex items-center gap-2">
-                <Volume2 className="w-5 h-5" />
+                <motion.span
+                  className="hero-section__button-icon flex items-center"
+                  whileHover={{ scale: 1.18 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                >
+                  <Volume2 className="w-5 h-5" />
+                </motion.span>
                 <span>Let's Talk</span>
               </span>
             </AnimatedButton>
