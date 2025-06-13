@@ -20,7 +20,7 @@ function Footer() {
             </div>
             <div className="footer__contact-item flex items-center gap-1 text-xs sm:text-sm md:text-base">
               <Phone className="footer__icon w-4 h-4 text-blue-300" />
-              <a href="tel:2105804664" className="footer__link text-blue-200 hover:text-blue-400 font-medium">210-580-4664</a>
+              <a href="tel:9315610123" className="footer__link text-blue-200 hover:text-blue-400 font-medium">931-561-0123</a>
             </div>
             <div className="footer__contact-item flex items-center gap-1 text-xs sm:text-sm md:text-base">
               <Clipboard className="footer__icon w-4 h-4 text-blue-300" />
