@@ -1,6 +1,6 @@
 import HeroSection from '../components/common/HeroSection'
 import ServiceCard from '../components/common/ServiceCard'
-import { Building2, Zap, Thermometer } from 'lucide-react'
+import { Building2, Zap, Thermometer, Shield, Flame, Wind } from 'lucide-react'
 
 function Projects() {
   const projects = [
@@ -9,19 +9,42 @@ function Projects() {
       title: 'Robotics Plant HVAC Overhaul',
       description: 'Designed and installed a fully automated HVAC system for a robotics manufacturing facility. Sensors everywhere. Zero downtime.',
       video: '/src/assets/industrial-view-trimmed.mp4',
-      poster: '', // Add a poster image path if you have one
+      poster: '',
     },
     {
       icon: Zap,
       title: 'Data Center Cooling',
       description: 'Built a high-efficiency cooling system for a local data center. Kept the servers happy, and the energy bill low.',
-      video: '/src/assets/powerPlant-view-trimmed.mp4'
+      video: '/src/assets/bigFan-trimmed.mp4',
+      poster: '',
     },
     {
       icon: Thermometer,
-      title: 'Pharma Lab Refrigeration',
-      description: 'Custom refrigeration for a pharmaceutical lab. Super precise, super reliable, super cool (literally).',
-      video: '/src/assets/pharmaFactory.mp4'
+      title: 'Pharma Lab Retrofit',
+      description: 'Upgraded a pharmaceutical lab with precision climate control for sensitive research and production.',
+      video: '/src/assets/cold-720p-trimmed.mp4',
+      poster: '',
+    },
+    {
+      icon: Shield,
+      title: 'Clean Room Air Filtration',
+      description: 'Installed advanced HEPA filtration and positive pressure systems for a semiconductor clean room facility.',
+      video: '/src/assets/industrial-view-trimmed.mp4',
+      poster: '',
+    },
+    {
+      icon: Flame,
+      title: 'Commercial Kitchen Ventilation',
+      description: 'Engineered and implemented a fire-safe, high-capacity ventilation system for a busy restaurant chain.',
+      video: '/src/assets/bigFan-trimmed.mp4',
+      poster: '',
+    },
+    {
+      icon: Wind,
+      title: 'Warehouse Airflow Optimization',
+      description: 'Redesigned airflow and destratification for a large warehouse, improving comfort and reducing energy costs.',
+      video: '/src/assets/cold-720p-trimmed.mp4',
+      poster: '',
     },
   ]
 
