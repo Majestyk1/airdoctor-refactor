@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Wrench, Zap, Building2 } from 'lucide-react'
+import { Wrench, Zap, Building2, Volume2 } from 'lucide-react'
 import HeroSection from '../components/common/HeroSection'
 import ServiceCard from '../components/common/ServiceCard'
 import AnimatedButton from '../components/common/AnimatedButton'
@@ -17,15 +17,20 @@ function Home() {
         }
         subtitle="We're not your typical HVACR company. We're a tiny crew of tech-loving pros who solve big industrial challenges with a smile."
       >
-        <div className="hero-section__actions flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <div className="hero-section__actions flex flex-col sm:flex-row gap-4 justify-center mt-8 pb-2">
           <Link to="/projects">
-            <AnimatedButton>
-              See Our Work
+            <AnimatedButton className="hero-section__button rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2">
+              <span className="hero-section__button-content flex items-center gap-2">
+                See Our Work
+              </span>
             </AnimatedButton>
           </Link>
           <Link to="/contact">
-            <AnimatedButton className="bg-white/10 hover:bg-white/20 text-white border border-blue-200/40">
-              Let's Talk
+            <AnimatedButton className="hero-section__button rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-blue-200/40">
+              <span className="hero-section__button-content flex items-center gap-2">
+                <Volume2 className="w-5 h-5" />
+                <span>Let's Talk</span>
+              </span>
             </AnimatedButton>
           </Link>
         </div>
