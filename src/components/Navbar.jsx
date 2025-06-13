@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import 'hover.css/css/hover-min.css'
+import DrawerPortal from './common/DrawerPortal'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -69,7 +70,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
               ? 'navbar__logo_scrolled text-sky-400 drop-shadow-lg'
               : 'navbar__logo_transparent text-white drop-shadow'
           }`}>
-            AirDoctorHVAC
+            AirDoctorHVACR
           </Link>
         </motion.div>
         {/* Desktop Nav */}
@@ -124,48 +125,36 @@ function Navbar({ isOpen, onToggle, onClose }) {
         </div>
       </div>
       {/* Mobile Drawer Overlay & Drawer (Animated Together) */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              key="overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="navbar__overlay fixed inset-0 bg-black/60 backdrop-blur-lg z-40 pointer-events-auto"
-            />
-            <motion.aside
-              key="drawer"
-              ref={drawerRef}
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className={`navbar__drawer fixed inset-y-0 right-0 w-3/4 max-w-xs bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700/90 p-6 z-50 shadow-2xl backdrop-blur-2xl border-l-2 border-blue-400/30 ${isOpen ? 'navbar__drawer_open translate-x-0' : 'navbar__drawer_closed translate-x-full'}`}
-              aria-label="Mobile navigation"
-            >
-              <nav className="navbar__mobile-nav flex flex-col gap-4">
-                {links.map(({ to, label }) => (
-                  <motion.div key={to} whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
-                    <Link to={to} className="navbar__mobile-link text-lg font-semibold py-2 border-b border-blue-800 text-white no-underline hvr-glow hover:text-sky-400" onClick={onClose}>
-                      {label}
-                    </Link>
-                  </motion.div>
-                ))}
-              </nav>
-              <div className="navbar__drawer-actions mt-8 flex flex-col gap-4">
-                <motion.div whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
-                  <a href="tel:5551234567" className="navbar__drawer-emergency w-full flex items-center justify-center gap-2 border border-sky-400 text-sky-400 py-3 rounded-lg font-semibold no-underline hvr-glow hover:bg-sky-400 hover:text-blue-900 transition-colors" aria-label="Emergency phone" onClick={onClose}>
-                    <Phone className="navbar__drawer-emergency-icon h-4 w-4" />
-                    24/7 Emergency
-                  </a>
-                </motion.div>
-              </div>
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+      <DrawerPortal isOpen={isOpen} onClose={onClose}>
+        <motion.aside
+          key="drawer"
+          ref={drawerRef}
+          initial={{ x: '100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '100%' }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          className={`navbar__drawer fixed inset-y-0 right-0 w-3/4 max-w-xs bg-transparent p-6 z-50 shadow-2xl backdrop-blur-2xl ${isOpen ? 'navbar__drawer_open translate-x-0' : 'navbar__drawer_closed translate-x-full'}`}
+          aria-label="Mobile navigation"
+        >
+          <nav className="navbar__mobile-nav flex flex-col gap-4">
+            {links.map(({ to, label }) => (
+              <motion.div key={to} whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
+                <Link to={to} className="navbar__mobile-link text-lg font-semibold py-2 border-b border-blue-800 text-white no-underline hvr-glow hover:text-sky-400" onClick={onClose}>
+                  {label}
+                </Link>
+              </motion.div>
+            ))}
+          </nav>
+          <div className="navbar__drawer-actions mt-8 flex flex-col gap-4">
+            <motion.div whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
+              <a href="tel:5551234567" className="navbar__drawer-emergency w-full flex items-center justify-center gap-2 border border-sky-400 text-sky-400 py-3 rounded-lg font-semibold no-underline hvr-glow hover:bg-sky-400 hover:text-blue-900 transition-colors" aria-label="Emergency phone" onClick={onClose}>
+                <Phone className="navbar__drawer-emergency-icon h-4 w-4" />
+                24/7 Emergency
+              </a>
+            </motion.div>
+          </div>
+        </motion.aside>
+      </DrawerPortal>
     </motion.header>
   )
 }

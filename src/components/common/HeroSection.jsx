@@ -5,7 +5,7 @@ function HeroSection({
   title,
   subtitle,
   accent,
-  background = 'bg-gradient-to-br from-gray-900 to-blue-900',
+  background = 'bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500',
   children,
   className = '',
 }) {
