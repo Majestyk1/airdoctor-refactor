@@ -8,6 +8,8 @@ function Projects() {
       icon: Building2,
       title: 'Robotics Plant HVAC Overhaul',
       description: 'Designed and installed a fully automated HVAC system for a robotics manufacturing facility. Sensors everywhere. Zero downtime.',
+      video: '/src/assets/industrial-view-trimmed.mp4',
+      poster: '', // Add a poster image path if you have one
     },
     {
       icon: Zap,
@@ -37,6 +39,8 @@ function Projects() {
                 icon={project.icon}
                 title={project.title}
                 description={project.description}
+                video={project.video}
+                poster={project.poster}
                 className="projects-list__item"
               />
             ))}
