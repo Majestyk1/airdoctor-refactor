@@ -48,7 +48,7 @@ function Home() {
               icon={Zap}
               title="Smart Controls"
               description="Automation and monitoring that make your systems work smarter, not harder."
-              
+              video="/src/assets/bigFan-trimmed.mp4"
             />
             <ServiceCard
               icon={Building2}
