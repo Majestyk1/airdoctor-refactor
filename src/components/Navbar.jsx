@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import 'hover.css/css/hover-min.css'
 
 const links = [
   { to: '/', label: 'Home' },
-  { to: '/service', label: 'Service' },
-  { to: '/installation', label: 'Installation' },
-  { to: '/retrofit', label: 'Retrofit' },
   { to: '/about', label: 'About' },
   { to: '/projects', label: 'Projects' },
   { to: '/contact', label: 'Contact' },
@@ -14,6 +13,7 @@ const links = [
 
 function Navbar({ isOpen, onToggle, onClose }) {
   const [isScrolled, setIsScrolled] = useState(false)
+  const drawerRef = useRef(null)
 
   const handleScroll = () => {
     setIsScrolled(window.scrollY > 50)
@@ -24,86 +24,149 @@ function Navbar({ isOpen, onToggle, onClose }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Add Escape key handler for closing drawer
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
+
+  // Add click outside handler for closing drawer
+  useEffect(() => {
+    if (!isOpen) return
+    function handleClickOutside(event) {
+      if (drawerRef.current && !drawerRef.current.contains(event.target)) {
+        onClose()
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen, onClose])
+
   return (
-    <header className={`navbar fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      isScrolled
-        ? 'navbar--scrolled bg-white shadow-md py-2'
-        : 'navbar--transparent bg-transparent py-4'
-    }`}>
+    <motion.header
+      className={`navbar fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'navbar__scrolled bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 shadow-2xl py-2 backdrop-blur-lg'
+          : 'navbar__transparent bg-gradient-to-br from-blue-800 via-blue-700 to-blue-600 py-4 backdrop-blur-md'
+      }`}
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="navbar__container flex items-center justify-between max-w-7xl mx-auto px-4">
         {/* Logo */}
-        <Link to="/" className={`navbar__logo text-lg font-bold transition-colors ${
-          isScrolled
-            ? 'navbar__logo--scrolled text-blue-600'
-            : 'navbar__logo--transparent text-white'
-        }`}>AirDoctorHVAC</Link>
+        <motion.div whileHover={{ scale: 1.08, textShadow: '0 0 24px #00BFFF' }}>
+          <Link to="/" className={`navbar__logo text-lg font-extrabold tracking-widest transition-colors hvr-glow ${
+            isScrolled
+              ? 'navbar__logo_scrolled text-sky-400 drop-shadow-lg'
+              : 'navbar__logo_transparent text-white drop-shadow'
+          }`}>
+            AirDoctorHVAC
+          </Link>
+        </motion.div>
         {/* Desktop Nav */}
         <nav className="navbar__desktop-nav hidden md:flex items-center gap-6">
           {links.map(({ to, label }) => (
-            <Link 
-              key={to} 
-              to={to} 
-              className={`navbar__link text-sm font-medium transition-colors ${
-                isScrolled
-                  ? 'navbar__link--scrolled text-gray-700 hover:text-blue-600'
-                  : 'navbar__link--transparent text-white hover:text-white/80'
-              }`} 
-              onClick={onClose}
-            >
-              {label}
-            </Link>
+            <motion.div key={to} whileHover={{ scale: 1.1, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
+              <Link 
+                to={to} 
+                className={`navbar__link text-sm font-semibold transition-colors hvr-glow ${
+                  isScrolled
+                    ? 'navbar__link_scrolled text-white hover:text-sky-400'
+                    : 'navbar__link_transparent text-white hover:text-sky-400'
+                }`} 
+                onClick={onClose}
+              >
+                {label}
+              </Link>
+            </motion.div>
           ))}
         </nav>
         {/* CTA + Hamburger */}
         <div className="navbar__actions flex items-center gap-4 md:gap-6">
-          <a 
-            href="tel:5551234567" 
-            className={`navbar__cta-phone hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors ${
-              isScrolled
-                ? 'navbar__cta-phone--scrolled text-blue-600 hover:text-blue-700'
-                : 'navbar__cta-phone--transparent text-white hover:text-white/80'
-            }`} 
-            aria-label="Call 555-123-4567"
-          >
-            <Phone className="navbar__cta-phone-icon w-4 h-4" />
-            <span>24/7</span>
-          </a>
-          <button 
-            onClick={onToggle} 
-            className={`navbar__menu-toggle md:hidden p-2 bg-transparent border-none cursor-pointer ${
-              isScrolled
-                ? 'navbar__menu-toggle--scrolled text-gray-800'
-                : 'navbar__menu-toggle--transparent text-white'
-            }`} 
-            aria-label="Toggle navigation" 
-            tabIndex="0" 
-            onKeyDown={(e)=>{if(e.key==='Enter'){onToggle()}}}
-          >
-            {isOpen ? <X className="navbar__menu-icon w-6 h-6" /> : <Menu className="navbar__menu-icon w-6 h-6" />}
-          </button>
+          <motion.div whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
+            <a 
+              href="tel:5551234567" 
+              className={`navbar__cta-phone hidden md:inline-flex items-center gap-2 text-sm font-semibold transition-colors hvr-glow ${
+                isScrolled
+                  ? 'navbar__cta-phone_scrolled text-sky-400 hover:text-sky-500'
+                  : 'navbar__cta-phone_transparent text-white hover:text-sky-400'
+              }`} 
+              aria-label="Call 555-123-4567"
+            >
+              <Phone className="navbar__cta-phone-icon w-4 h-4" />
+              <span>24/7</span>
+            </a>
+          </motion.div>
+          <motion.div whileTap={{ scale: 1.2 }}>
+            <button 
+              onClick={onToggle} 
+              className={`navbar__menu-toggle md:hidden p-2 bg-white/10 rounded-lg shadow hvr-glow border-none cursor-pointer transition-colors ${
+                isScrolled
+                  ? 'navbar__menu-toggle_scrolled text-sky-400'
+                  : 'navbar__menu-toggle_transparent text-white'
+              }`} 
+              aria-label="Toggle navigation" 
+              tabIndex="0" 
+              onKeyDown={(e)=>{if(e.key==='Enter'){onToggle()}}}
+            >
+              {isOpen ? <X className="navbar__menu-icon w-6 h-6" /> : <Menu className="navbar__menu-icon w-6 h-6" />}
+            </button>
+          </motion.div>
         </div>
       </div>
-      {/* Mobile Drawer */}
-      <div className={`navbar__overlay fixed backdrop-blur-sm inset-0 bg-black/60 transition-opacity z-40 ${isOpen ? 'navbar__overlay--open opacity-100 pointer-events-auto' : 'navbar__overlay--closed opacity-0 pointer-events-none'}`} onClick={onClose} />
-      <aside className={`navbar__drawer fixed inset-y-0 right-0 w-3/4 max-w-xs bg-white p-6 transition-transform z-50 ${isOpen ? 'navbar__drawer--open translate-x-0' : 'navbar__drawer--closed translate-x-full'}`} aria-label="Mobile navigation" onClick={(e)=>e.stopPropagation()}>
-        <nav className="navbar__mobile-nav flex flex-col gap-4">
-          {links.map(({ to, label }) => (
-            <Link key={to} to={to} className="navbar__mobile-link text-lg font-medium py-2 border-b border-gray-100 text-gray-800 no-underline" onClick={onClose}>
-              {label}
-            </Link>
-          ))}
-        </nav>
-        <div className="navbar__drawer-actions mt-8 flex flex-col gap-4">
-          <button className="navbar__drawer-quote-btn w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-medium transition-colors border-none cursor-pointer" onClick={onClose} tabIndex="0" aria-label="Request a Quote" onKeyDown={(e)=>{if(e.key==='Enter'){onClose()}}}>
-            Request a Quote
-          </button>
-          <a href="tel:5551234567" className="navbar__drawer-emergency w-full flex items-center justify-center gap-2 border border-blue-600 text-blue-600 py-3 rounded-lg font-medium no-underline" aria-label="Emergency phone" onClick={onClose}>
-            <Phone className="navbar__drawer-emergency-icon h-4 w-4" />
-            24/7 Emergency
-          </a>
-        </div>
-      </aside>
-    </header>
+      {/* Mobile Drawer Overlay & Drawer (Animated Together) */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              key="overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="navbar__overlay fixed inset-0 bg-black/60 backdrop-blur-lg z-40 pointer-events-auto"
+            />
+            <motion.aside
+              key="drawer"
+              ref={drawerRef}
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className={`navbar__drawer fixed inset-y-0 right-0 w-3/4 max-w-xs bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700/90 p-6 z-50 shadow-2xl backdrop-blur-2xl border-l-2 border-blue-400/30 ${isOpen ? 'navbar__drawer_open translate-x-0' : 'navbar__drawer_closed translate-x-full'}`}
+              aria-label="Mobile navigation"
+            >
+              <nav className="navbar__mobile-nav flex flex-col gap-4">
+                {links.map(({ to, label }) => (
+                  <motion.div key={to} whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
+                    <Link to={to} className="navbar__mobile-link text-lg font-semibold py-2 border-b border-blue-800 text-white no-underline hvr-glow hover:text-sky-400" onClick={onClose}>
+                      {label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+              <div className="navbar__drawer-actions mt-8 flex flex-col gap-4">
+                <motion.div whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
+                  <a href="tel:5551234567" className="navbar__drawer-emergency w-full flex items-center justify-center gap-2 border border-sky-400 text-sky-400 py-3 rounded-lg font-semibold no-underline hvr-glow hover:bg-sky-400 hover:text-blue-900 transition-colors" aria-label="Emergency phone" onClick={onClose}>
+                    <Phone className="navbar__drawer-emergency-icon h-4 w-4" />
+                    24/7 Emergency
+                  </a>
+                </motion.div>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </motion.header>
   )
 }
 
