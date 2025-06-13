@@ -15,11 +15,13 @@ function Projects() {
       icon: Zap,
       title: 'Data Center Cooling',
       description: 'Built a high-efficiency cooling system for a local data center. Kept the servers happy, and the energy bill low.',
+      video: '/src/assets/powerPlant-view-trimmed.mp4'
     },
     {
       icon: Thermometer,
       title: 'Pharma Lab Refrigeration',
       description: 'Custom refrigeration for a pharmaceutical lab. Super precise, super reliable, super cool (literally).',
+      video: '/src/assets/pharmaFactory.mp4'
     },
   ]
 

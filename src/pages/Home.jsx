@@ -42,6 +42,7 @@ function Home() {
               icon={Wrench}
               title="Industrial HVAC"
               description="Custom solutions for manufacturing and tech-driven facilities. No cookie-cutter installs here."
+              video="/src/assets/industrialHVAC-trimmed-720p.mp4"
             />
             <ServiceCard
               icon={Zap}
