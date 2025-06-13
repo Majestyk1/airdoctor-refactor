@@ -48,11 +48,13 @@ function Home() {
               icon={Zap}
               title="Smart Controls"
               description="Automation and monitoring that make your systems work smarter, not harder."
+              video="src/assets/bigFans720p.mp4"
             />
             <ServiceCard
               icon={Building2}
               title="Refrigeration"
               description="Keeping things cool for industry, labs, and anyone who needs precision."
+              video="/src/assets/cold-720p-trimmed.mp4"
             />
           </div>
         </div>
