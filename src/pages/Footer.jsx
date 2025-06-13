@@ -5,7 +5,7 @@ function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="footer bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 text-white border-t border-blue-800">
+    <footer className="footer bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 text-white">
       <div className="footer__container w-full max-w-screen-xl mx-auto px-4 py-8">
         <div className="footer__row flex flex-col items-center justify-center gap-y-3 gap-x-4 text-center md:flex-row md:justify-between md:text-left">
           {/* Logo & Brand */}
@@ -29,7 +29,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="footer__bottom text-center text-xs text-blue-200 py-3 border-t border-blue-800 bg-blue-900/60">
+      <div className="footer__bottom text-white text-center py-2 text-xs">
         © {currentYear} AirDoctorHVACR. All rights reserved.
       </div>
       <style>{`
