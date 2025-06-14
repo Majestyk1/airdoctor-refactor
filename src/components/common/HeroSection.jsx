@@ -11,7 +11,7 @@ function HeroSection({
 }) {
   return (
     <section
-      className={`hero-section relative min-h-[60vh] ${background} text-white flex items-center justify-center overflow-hidden ${className}`}
+      className={`hero-section relative min-h-[100dvh] ${background} text-white flex items-center justify-center overflow-hidden ${className}`}
     >
       {/* Animated glassy Dodgers blue/purple glow */}
       <motion.span
@@ -21,25 +21,27 @@ function HeroSection({
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden="true"
       />
-      <motion.div
-        className="hero-section__container relative z-10 container mx-auto px-4 text-center backdrop-blur-xl bg-white/10 rounded-2xl max-w-3xl transition-all duration-500 shadow-[0_8px_40px_0_rgba(30,30,40,0.45)] hover:shadow-[0_12px_60px_0_rgba(30,30,40,0.7)] hover:scale-[1.025]"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-        tabIndex={-1}
-      >
-        <h1 className="hero-section__title text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
-          {title}{' '}
-          {accent && <span className="hero-section__title_accent text-blue-400">{accent}</span>}
-        </h1>
-        {subtitle && (
-          <p className="hero-section__subtitle text-lg md:text-2xl text-blue-100 max-w-2xl mx-auto mb-2">
-            {subtitle}
-          </p>
-        )}
-        {children}
-      </motion.div>
+      <div className="hero-section__wrapper container mx-auto px-4 py-8">
+        <motion.div
+          className="hero-section__container relative z-10 text-center backdrop-blur-xl bg-white/10 rounded-2xl max-w-3xl mx-auto p-6 md:p-8 transition-all duration-500 shadow-[0_8px_40px_0_rgba(30,30,40,0.45)] hover:shadow-[0_12px_60px_0_rgba(30,30,40,0.7)] hover:scale-[1.025]"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          tabIndex={-1}
+        >
+          <h1 className="hero-section__title text-3xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
+            {title}{' '}
+            {accent && <span className="hero-section__title_accent text-blue-400">{accent}</span>}
+          </h1>
+          {subtitle && (
+            <p className="hero-section__subtitle text-base md:text-xl text-blue-100 max-w-2xl mx-auto mb-6">
+              {subtitle}
+            </p>
+          )}
+          {children}
+        </motion.div>
+      </div>
     </section>
   )
 }

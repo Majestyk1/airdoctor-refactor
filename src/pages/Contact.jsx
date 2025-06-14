@@ -88,80 +88,84 @@ function Contact() {
 
       {/* Contact Form Card */}
       <section className="contact-form py-16 bg-gradient-to-br from-blue-100 via-white to-blue-50">
-        <motion.div
-          className={`contact-form__card relative max-w-2xl mx-auto p-10 rounded-3xl ${formCardBg} text-white overflow-hidden`}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          {/* Blue glow on hover/focus */}
-          <span className="contact-form__glow pointer-events-none absolute -inset-4 z-0 rounded-3xl blur-2xl bg-blue-400/30 opacity-0 hover:opacity-80 focus-within:opacity-80 transition duration-300" />
-          <h2 className="contact-form__title text-2xl md:text-3xl font-bold text-center mb-6 text-blue-100 drop-shadow-lg">
-            Or, fill out the form below:
-          </h2>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 relative z-10">
-            <div className="contact-form__field">
-              <label className="contact-form__label block text-sm font-medium text-blue-100 mb-2">
-                Name
-              </label>
-              <input
-                type="text"
-                {...register('name', { required: 'Name is required' })}
-                className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-white/20 text-white placeholder-blue-100 border-blue-200/40 focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.name ? 'border-red-400' : 'border-blue-200/40'}`}
-                placeholder="Your name"
-              />
-              {errors.name && (
-                <span className="contact-form__error text-sm text-red-200 mt-1">{errors.name.message}</span>
-              )}
-            </div>
-            <div className="contact-form__field">
-              <label className="contact-form__label block text-sm font-medium text-blue-100 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                {...register('email', {
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^\S+@\S+$/i,
-                    message: 'Enter a valid email'
-                  }
-                })}
-                className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-white/20 text-white placeholder-blue-100 border-blue-200/40 focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.email ? 'border-red-400' : 'border-blue-200/40'}`}
-                placeholder="you@email.com"
-              />
-              {errors.email && (
-                <span className="contact-form__error text-sm text-red-200 mt-1">{errors.email.message}</span>
-              )}
-            </div>
-            <div className="contact-form__field">
-              <label className="contact-form__label block text-sm font-medium text-blue-100 mb-2">
-                Message
-              </label>
-              <textarea
-                {...register('message', { required: 'Message is required' })}
-                className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-white/20 text-white placeholder-blue-100 border-blue-200/40 focus:outline-none focus:ring-2 focus:ring-blue-400 min-h-[120px] ${errors.message ? 'border-red-400' : 'border-blue-200/40'}`}
-                placeholder="How can Chris help you?"
-              />
-              {errors.message && (
-                <span className="contact-form__error text-sm text-red-200 mt-1">{errors.message.message}</span>
-              )}
-            </div>
-            <AnimatedButton
-              type="submit"
-              className="contact-form__submit w-full mt-4"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </AnimatedButton>
-          </form>
-        </motion.div>
+        <div className="container mx-auto px-4">
+          <motion.div
+            className={`contact-form__card relative max-w-2xl mx-auto p-10 rounded-3xl ${formCardBg} text-white overflow-hidden`}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            {/* Blue glow on hover/focus */}
+            <span className="contact-form__glow pointer-events-none absolute -inset-4 z-0 rounded-3xl blur-2xl bg-blue-400/30 opacity-0 hover:opacity-80 focus-within:opacity-80 transition duration-300" />
+            <h2 className="contact-form__title text-2xl md:text-3xl font-bold text-center mb-6 text-blue-100 drop-shadow-lg">
+              Or, fill out the form below:
+            </h2>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 relative z-10">
+              <div className="contact-form__field">
+                <label className="contact-form__label block text-sm font-medium text-blue-100 mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  {...register('name', { required: 'Name is required' })}
+                  className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-white/20 text-white placeholder-blue-100 border-blue-200/40 focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.name ? 'border-red-400' : 'border-blue-200/40'}`}
+                  placeholder="Your name"
+                />
+                {errors.name && (
+                  <span className="contact-form__error text-sm text-red-200 mt-1">{errors.name.message}</span>
+                )}
+              </div>
+              <div className="contact-form__field">
+                <label className="contact-form__label block text-sm font-medium text-blue-100 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^\S+@\S+$/i,
+                      message: 'Enter a valid email'
+                    }
+                  })}
+                  className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-white/20 text-white placeholder-blue-100 border-blue-200/40 focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.email ? 'border-red-400' : 'border-blue-200/40'}`}
+                  placeholder="you@email.com"
+                />
+                {errors.email && (
+                  <span className="contact-form__error text-sm text-red-200 mt-1">{errors.email.message}</span>
+                )}
+              </div>
+              <div className="contact-form__field">
+                <label className="contact-form__label block text-sm font-medium text-blue-100 mb-2">
+                  Message
+                </label>
+                <textarea
+                  {...register('message', { required: 'Message is required' })}
+                  className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-white/20 text-white placeholder-blue-100 border-blue-200/40 focus:outline-none focus:ring-2 focus:ring-blue-400 min-h-[120px] ${errors.message ? 'border-red-400' : 'border-blue-200/40'}`}
+                  placeholder="How can Chris help you?"
+                />
+                {errors.message && (
+                  <span className="contact-form__error text-sm text-red-200 mt-1">{errors.message.message}</span>
+                )}
+              </div>
+              <AnimatedButton
+                type="submit"
+                className="contact-form__submit w-full mt-4"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </AnimatedButton>
+            </form>
+          </motion.div>
+        </div>
       </section>
 
       <section className="contact-map py-12">
-        <h2 className="contact-map__title text-2xl font-bold mb-4 text-blue-800 text-center">Our Service Area</h2>
-        <LocationMap />
+        <div className="container mx-auto px-4">
+          <h2 className="contact-map__title text-2xl font-bold mb-4 text-blue-800 text-center">Our Service Area</h2>
+          <LocationMap />
+        </div>
       </section>
       {/* Modal feedback for success/error */}
       <ModalPortal isOpen={modal.open} onClose={() => setModal(m => ({ ...m, open: false }))}>

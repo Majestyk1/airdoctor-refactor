@@ -18,16 +18,16 @@ function Home() {
         }
         subtitle="We're not your typical HVACR company. We're a tiny crew of tech-loving pros who solve big industrial challenges with a smile."
       >
-        <div className="hero-section__actions flex flex-col sm:flex-row gap-4 justify-center mt-8 pb-2">
-          <Link to="/projects">
-            <AnimatedButton className="hero-section__button rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2">
+        <div className="hero-section__actions flex flex-col sm:flex-row gap-4 items-center justify-center mt-6">
+          <Link to="/projects" className="w-full sm:w-auto">
+            <AnimatedButton className="hero-section__button w-full sm:w-auto rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2">
               <span className="hero-section__button-content flex items-center gap-2">
                 See Our Work
               </span>
             </AnimatedButton>
           </Link>
-          <Link to="/contact">
-            <AnimatedButton className="hero-section__button rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-blue-200/40">
+          <Link to="/contact" className="w-full sm:w-auto">
+            <AnimatedButton className="hero-section__button w-full sm:w-auto rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-blue-200/40">
               <span className="hero-section__button-content flex items-center gap-2">
                 <motion.span
                   className="hero-section__button-icon flex items-center"
