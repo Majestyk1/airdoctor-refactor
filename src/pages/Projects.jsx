@@ -1,50 +1,67 @@
+import { useState } from 'react'
 import HeroSection from '../components/common/HeroSection'
-import ServiceCard from '../components/common/ServiceCard'
+import ServiceCard, { ServiceModal } from '../components/common/ServiceCard'
 import { Building2, Zap, Thermometer, Shield, Flame, Wind } from 'lucide-react'
 
+import industrialPoster from '../assets/test.jpg'
+import controlsPoster from '../assets/test1.jpg'
+
 function Projects() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const handleCardClick = (project) => {
+    setSelectedProject(project);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedProject(null);
+  };
+
   const projects = [
     {
       icon: Building2,
       title: 'Robotics Plant HVAC Overhaul',
       description: 'Designed and installed a fully automated HVAC system for a robotics manufacturing facility. Sensors everywhere. Zero downtime.',
       video: '/src/assets/industrial-view-trimmed.mp4',
-      poster: '',
+      poster: industrialPoster,
     },
     {
       icon: Zap,
       title: 'Data Center Cooling',
       description: 'Built a high-efficiency cooling system for a local data center. Kept the servers happy, and the energy bill low.',
       video: '/src/assets/bigFan-trimmed.mp4',
-      poster: '',
+      poster: controlsPoster,
     },
     {
       icon: Thermometer,
       title: 'Pharma Lab Retrofit',
       description: 'Upgraded a pharmaceutical lab with precision climate control for sensitive research and production.',
       video: '/src/assets/cold-720p-trimmed.mp4',
-      poster: '',
+      poster: industrialPoster,
     },
     {
       icon: Shield,
       title: 'Clean Room Air Filtration',
       description: 'Installed advanced HEPA filtration and positive pressure systems for a semiconductor clean room facility.',
       video: '/src/assets/industrial-view-trimmed.mp4',
-      poster: '',
+      poster: controlsPoster,
     },
     {
       icon: Flame,
       title: 'Commercial Kitchen Ventilation',
       description: 'Engineered and implemented a fire-safe, high-capacity ventilation system for a busy restaurant chain.',
       video: '/src/assets/bigFan-trimmed.mp4',
-      poster: '',
+      poster: industrialPoster,
     },
     {
       icon: Wind,
       title: 'Warehouse Airflow Optimization',
       description: 'Redesigned airflow and destratification for a large warehouse, improving comfort and reducing energy costs.',
       video: '/src/assets/cold-720p-trimmed.mp4',
-      poster: '',
+      poster: controlsPoster,
     },
   ]
 
@@ -64,14 +81,20 @@ function Projects() {
                 icon={project.icon}
                 title={project.title}
                 description={project.description}
-                video={project.video}
                 poster={project.poster}
+                onClick={() => handleCardClick(project)}
                 className="projects-list__item"
               />
             ))}
           </div>
         </div>
       </section>
+
+      <ServiceModal
+        isOpen={modalOpen}
+        onClose={handleCloseModal}
+        service={selectedProject}
+      />
     </>
   )
 }
