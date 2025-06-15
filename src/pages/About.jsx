@@ -1,8 +1,16 @@
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import HeroSection from '../components/common/HeroSection'
 import InfoCard from '../components/common/InfoCard'
 import StatsRow from '../components/common/StatsRow'
 
 function About() {
+  const [ctaExpanded, setCtaExpanded] = useState(false)
+
+  const toggleCta = () => {
+    setCtaExpanded(!ctaExpanded)
+  }
+
   return (
     <main className="about-page bg-white min-h-screen w-full overflow-x-hidden">
       <HeroSection
@@ -28,17 +36,55 @@ function About() {
         ]}
       />
 
-      {/* Hardcoded CTA Section with matching InfoCard background and hover */}
+      {/* Expandable CTA Section */}
       <section className="about-cta py-12 bg-gradient-to-br from-blue-100 via-white to-blue-200 text-center">
-        <div className="about-cta__container container mx-auto px-4 max-w-2xl">
-          <div className="about-cta__card transition-all duration-300 rounded-2xl bg-white/60 backdrop-blur-xl shadow-lg shadow-blue-200/40 hover:bg-gradient-to-tr hover:from-blue-100 hover:to-white hover:bg-white/70 focus-within:bg-white/70 p-6 md:p-8">
+        <div className="about-cta__container container mx-auto px-4 max-w-md">
+          <motion.div 
+            onClick={toggleCta}
+            className="about-cta__card group transition-all duration-300 rounded-2xl bg-blue-50/80 backdrop-blur-xl shadow-lg shadow-blue-200/40 hover:bg-blue-100/70 hover:scale-[1.02] p-6 md:p-8 cursor-pointer"
+            tabIndex={0}
+            role="button"
+            aria-label={ctaExpanded ? "Click to collapse contact info" : "Click to expand contact info"}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCta(); } }}
+          >
+            {/* Title - Always visible */}
             <h2 className="about-cta__title text-2xl md:text-3xl font-bold mb-3 text-blue-800">
               Let's Connect!
             </h2>
-            <p className="about-cta__text text-lg text-blue-700 max-w-2xl mx-auto">
-              Got a project or want to talk shop? Chris is always happy to chat HVACR, tech, or Texas weather. Reach out and let's make something cool happen—with a little Dodgers magic!
-            </p>
-          </div>
+
+            {/* Expandable Content */}
+            <AnimatePresence mode="wait">
+              {ctaExpanded ? (
+                <motion.div
+                  key="expanded"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="about-cta__expanded-content w-full"
+                >
+                  <p className="about-cta__text text-lg text-blue-700 max-w-2xl mx-auto mb-4">
+                    Got a project or want to talk shop? Chris is always happy to chat HVACR, tech, or Texas weather. Reach out and let's make something cool happen—with a little Dodgers magic!
+                  </p>
+                  <p className="about-cta__collapse-hint text-blue-600 font-medium text-sm">
+                    Click to collapse
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="collapsed"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <p className="about-cta__expand-hint text-blue-600 font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Click for more info
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
     </main>
