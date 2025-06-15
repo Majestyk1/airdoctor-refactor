@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import HeroSection from '../components/common/HeroSection'
 import InfoCard from '../components/common/InfoCard'
 import StatsRow from '../components/common/StatsRow'
@@ -63,9 +64,19 @@ function About() {
                   transition={{ duration: 0.3 }}
                   className="about-cta__expanded-content w-full"
                 >
-                  <p className="about-cta__text text-lg text-blue-700 max-w-2xl mx-auto mb-4">
+                  <p className="about-cta__text text-lg text-blue-700 max-w-2xl mx-auto mb-6">
                     Got a project or want to talk shop? Chris is always happy to chat HVACR, tech, or Texas weather. Reach out and let's make something cool happen—with a little Dodgers magic!
                   </p>
+                  
+                  {/* CTA Button - Matching AnimatedButton hover effects */}
+                  <Link 
+                    to="/contact" 
+                    className="about-cta__button inline-block px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/70 focus:ring-offset-2 hover:shadow-blue-400/50 active:scale-95 active:shadow-inner cursor-pointer mb-4"
+                    onClick={(e) => e.stopPropagation()} // Prevent card collapse when clicking button
+                  >
+                    Get In Touch
+                  </Link>
+                  
                   <p className="about-cta__collapse-hint text-blue-600 font-medium text-sm">
                     Click to collapse
                   </p>
