@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import 'hover.css/css/hover-min.css'
 import DrawerPortal from './common/DrawerPortal'
 
 const links = [
@@ -64,22 +63,22 @@ function Navbar({ isOpen, onToggle, onClose }) {
     >
       <div className="navbar__container flex items-center justify-between max-w-7xl mx-auto px-4">
         {/* Logo */}
-        <motion.div whileHover={{ scale: 1.08, textShadow: '0 0 24px #00BFFF' }}>
-          <Link to="/" className={`navbar__logo text-lg font-extrabold tracking-widest transition-colors hvr-glow ${
+        <div>
+          <Link to="/" className={`navbar__logo text-lg font-extrabold tracking-widest transition-colors ${
             isScrolled
-              ? 'navbar__logo_scrolled text-sky-400 drop-shadow-lg'
-              : 'navbar__logo_transparent text-white drop-shadow'
+              ? 'navbar__logo_scrolled text-sky-400 drop-shadow-lg hover:text-sky-300'
+              : 'navbar__logo_transparent text-white drop-shadow hover:text-sky-400'
           }`}>
             AirDoctorHVACR
           </Link>
-        </motion.div>
+        </div>
         {/* Desktop Nav */}
         <nav className="navbar__desktop-nav hidden md:flex items-center gap-6">
           {links.map(({ to, label }) => (
-            <motion.div key={to} whileHover={{ scale: 1.1, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
+            <div key={to}>
               <Link 
                 to={to} 
-                className={`navbar__link text-sm font-semibold transition-colors hvr-glow ${
+                className={`navbar__link text-sm font-semibold transition-colors ${
                   isScrolled
                     ? 'navbar__link_scrolled text-white hover:text-sky-400'
                     : 'navbar__link_transparent text-white hover:text-sky-400'
@@ -88,17 +87,17 @@ function Navbar({ isOpen, onToggle, onClose }) {
               >
                 {label}
               </Link>
-            </motion.div>
+            </div>
           ))}
         </nav>
         {/* CTA + Hamburger */}
         <div className="navbar__actions flex items-center gap-4 md:gap-6">
-          <motion.div whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
+          <div>
             <a 
               href="tel:5551234567" 
-              className={`navbar__cta-phone hidden md:inline-flex items-center gap-2 text-sm font-semibold transition-colors hvr-glow ${
+              className={`navbar__cta-phone hidden md:inline-flex items-center gap-2 text-sm font-semibold transition-colors ${
                 isScrolled
-                  ? 'navbar__cta-phone_scrolled text-sky-400 hover:text-sky-500'
+                  ? 'navbar__cta-phone_scrolled text-sky-400 hover:text-sky-300'
                   : 'navbar__cta-phone_transparent text-white hover:text-sky-400'
               }`} 
               aria-label="Call 555-123-4567"
@@ -106,14 +105,14 @@ function Navbar({ isOpen, onToggle, onClose }) {
               <Phone className="navbar__cta-phone-icon w-4 h-4" />
               <span>24/7</span>
             </a>
-          </motion.div>
-          <motion.div whileTap={{ scale: 1.2 }}>
+          </div>
+          <div>
             <button 
               onClick={onToggle} 
-              className={`navbar__menu-toggle md:hidden p-2 bg-white/10 rounded-lg shadow hvr-glow border-none cursor-pointer transition-colors ${
+              className={`navbar__menu-toggle md:hidden p-2 bg-white/10 rounded-lg shadow border-none cursor-pointer transition-colors ${
                 isScrolled
-                  ? 'navbar__menu-toggle_scrolled text-sky-400'
-                  : 'navbar__menu-toggle_transparent text-white'
+                  ? 'navbar__menu-toggle_scrolled text-sky-400 hover:text-sky-300'
+                  : 'navbar__menu-toggle_transparent text-white hover:text-sky-400'
               }`} 
               aria-label="Toggle navigation" 
               tabIndex="0" 
@@ -121,7 +120,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
             >
               {isOpen ? <X className="navbar__menu-icon w-6 h-6" /> : <Menu className="navbar__menu-icon w-6 h-6" />}
             </button>
-          </motion.div>
+          </div>
         </div>
       </div>
       {/* Mobile Drawer Overlay & Drawer (Animated Together) */}
@@ -138,20 +137,20 @@ function Navbar({ isOpen, onToggle, onClose }) {
         >
           <nav className="navbar__mobile-nav flex flex-col gap-4">
             {links.map(({ to, label }) => (
-              <motion.div key={to} whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
-                <Link to={to} className="navbar__mobile-link text-lg font-semibold py-2 border-b border-blue-800 text-white no-underline hvr-glow hover:text-sky-400" onClick={onClose}>
+              <div key={to}>
+                <Link to={to} className="navbar__mobile-link text-lg font-semibold py-2 border-b border-blue-800 text-white no-underline transition-colors hover:text-sky-400" onClick={onClose}>
                   {label}
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </nav>
           <div className="navbar__drawer-actions mt-8 flex flex-col gap-4">
-            <motion.div whileHover={{ scale: 1.08, color: '#00BFFF', textShadow: '0 0 16px #00BFFF' }}>
-              <a href="tel:5551234567" className="navbar__drawer-emergency w-full flex items-center justify-center gap-2 border border-sky-400 text-sky-400 py-3 rounded-lg font-semibold no-underline hvr-glow hover:bg-sky-400 hover:text-blue-900 transition-colors" aria-label="Emergency phone" onClick={onClose}>
+            <div>
+              <a href="tel:5551234567" className="navbar__drawer-emergency w-full flex items-center justify-center gap-2 border border-sky-400 text-sky-400 py-3 rounded-lg font-semibold no-underline transition-colors hover:bg-sky-400 hover:text-blue-900" aria-label="Emergency phone" onClick={onClose}>
                 <Phone className="navbar__drawer-emergency-icon h-4 w-4" />
                 24/7 Emergency
               </a>
-            </motion.div>
+            </div>
           </div>
         </motion.aside>
       </DrawerPortal>
