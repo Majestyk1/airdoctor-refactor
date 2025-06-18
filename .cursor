@@ -1,2 +1,20 @@
 # .cursor rules
 # Always /web for best practices when looking for a solution 
+
+## 13. Technical Debt & Future Updates
+
+### Google Maps Migration (Non-Urgent)
+- **Issue**: google.maps.Marker deprecated as of Feb 21, 2024
+- **Current Status**: Still works, still supported for major bugs
+- **Action Required**: Migrate to google.maps.marker.AdvancedMarkerElement
+- **Timeline**: 12+ months notice before discontinuation (likely 2025+)
+- **Priority**: Low - plan for future sprint, not immediate
+- **Location**: LocationMap component using @react-google-maps/api
+- **References**: 
+  - Migration guide: https://developers.google.com/maps/documentation/javascript/advanced-markers/migration
+  - Deprecations: https://developers.google.com/maps/deprecations
+
+### Action Items:
+- [ ] Add to backlog for future migration
+- [ ] Use AdvancedMarkerElement for any new map features
+- [ ] Monitor for actual discontinuation announcement 

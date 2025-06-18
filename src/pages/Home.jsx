@@ -1,39 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Wrench, Zap, Building2, Volume2 } from 'lucide-react'
+import { Volume2 } from 'lucide-react'
 import HeroSection from '../components/common/HeroSection'
 import ServiceCard, { ServiceModal } from '../components/common/ServiceCard'
 import AnimatedButton from '../components/common/AnimatedButton'
 import { motion } from 'framer-motion'
-
-import industrialPoster from '../assets/test.jpg'
-import controlsPoster from '../assets/test1.jpg'
-import refrigerationPoster from '../assets/test.jpg'
-
-
-const services = [
-  {
-    icon: Wrench,
-    title: "Industrial HVAC",
-    description: "Custom solutions for manufacturing and tech-driven facilities. No cookie-cutter installs here.",
-    video: "/src/assets/industrialHVAC-trimmed-720p.mp4",
-    poster: industrialPoster,
-  },
-  {
-    icon: Zap,
-    title: "Smart Controls",
-    description: "Automation and monitoring that make your systems work smarter, not harder.",
-    video: "/src/assets/bigFan-trimmed.mp4",
-    poster: controlsPoster,
-  },
-  {
-    icon: Building2,
-    title: "Refrigeration",
-    description: "Keeping things cool for industry, labs, and anyone who needs precision.",
-    video: "/src/assets/cold-720p-trimmed.mp4",
-    poster: refrigerationPoster,
-  }
-];
+import { servicesData } from '../constants'
 
 
 function Home() {
@@ -94,7 +66,7 @@ function Home() {
             What We Do Best
           </h2>
           <div className="home-whatwedo__grid grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((service) => (
+            {servicesData.map((service) => (
               <ServiceCard
                 key={service.title}
                 icon={service.icon}

@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer'
 import ModalPortal from './ModalPortal'
 import 'hover.css/css/hover-min.css'
 
-function ServiceCard({ icon: Icon, title, description, video, poster, className = '', onClick }) {
+function ServiceCard({ icon: Icon, title, description, poster, className = '', onClick }) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
 
   return (

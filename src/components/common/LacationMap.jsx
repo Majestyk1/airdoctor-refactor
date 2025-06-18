@@ -1,4 +1,5 @@
 import { GoogleMap, Marker, Circle, useJsApiLoader } from '@react-google-maps/api'
+import { mapLocations, mapConfig } from '../../constants'
 
 const containerStyle = {
   width: '100%',
@@ -6,10 +7,6 @@ const containerStyle = {
   borderRadius: '1rem',
   boxShadow: '0 4px 24px 0 rgba(30,30,40,0.15)'
 }
-
-// City coordinates
-const sanAntonio = { lat: 29.4241, lng: -98.4936 }
-const austin = { lat: 30.2672, lng: -97.7431 }
 
 function LocationMap() {
   const { isLoaded } = useJsApiLoader({
@@ -21,20 +18,20 @@ function LocationMap() {
     <div className="location-map rounded-2xl overflow-hidden shadow-lg border border-blue-200/40">
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={{ lat: 29.845, lng: -98.118 }} // Center between the two cities
-        zoom={8}
+        center={mapLocations.center}
+        zoom={mapConfig.zoom}
         options={{
           disableDefaultUI: true,
           zoomControl: true,
         }}
       >
         {/* Markers */}
-        <Marker position={sanAntonio} label="San Antonio" />
-        <Marker position={austin} label="Austin" />
+        <Marker position={mapLocations.sanAntonio} label="San Antonio" />
+        <Marker position={mapLocations.austin} label="Austin" />
 
         {/* Circles for service area (about 50 mile radius) */}
         <Circle
-          center={sanAntonio}
+          center={mapLocations.sanAntonio}
           radius={80000} // meters (~50 miles)
           options={{
             fillColor: '#2563eb55', // semi-transparent Dodgers blue
@@ -43,7 +40,7 @@ function LocationMap() {
           }}
         />
         <Circle
-          center={austin}
+          center={mapLocations.austin}
           radius={80000}
           options={{
             fillColor: '#2563eb33',

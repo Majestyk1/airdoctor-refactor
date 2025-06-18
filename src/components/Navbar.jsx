@@ -4,12 +4,7 @@ import { Menu, X, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import DrawerPortal from './common/DrawerPortal'
 
-const links = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/projects', label: 'Projects' },
-  { to: '/contact', label: 'Contact' },
-]
+import { navigationLinks } from '../constants'
 
 function Navbar({ isOpen, onToggle, onClose }) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -74,7 +69,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
         </div>
         {/* Desktop Nav */}
         <nav className="navbar__desktop-nav hidden md:flex items-center gap-6">
-          {links.map(({ to, label }) => (
+          {navigationLinks.map(({ to, label }) => (
             <div key={to}>
               <Link 
                 to={to} 
@@ -136,7 +131,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
           aria-label="Mobile navigation"
         >
           <nav className="navbar__mobile-nav flex flex-col gap-4">
-            {links.map(({ to, label }) => (
+            {navigationLinks.map(({ to, label }) => (
               <div key={to}>
                 <Link to={to} className="navbar__mobile-link text-lg font-semibold py-2 border-b border-blue-800 text-white no-underline transition-colors hover:text-sky-400" onClick={onClose}>
                   {label}

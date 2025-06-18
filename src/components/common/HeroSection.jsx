@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import backgroundVideo from '../../assets/powerPlant-view-trimmed.mp4'
+import backgroundVideo from '../../assets/images/powerPlant-view-trimmed.mp4'
 
 function HeroSection({
   title,

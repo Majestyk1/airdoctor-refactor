@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import HeroSection from '../components/common/HeroSection'
 import InfoCard from '../components/common/InfoCard'
 import StatsRow from '../components/common/StatsRow'
+import { companyStats } from '../constants'
 
 function About() {
   const [ctaExpanded, setCtaExpanded] = useState(false)
@@ -30,11 +31,7 @@ function About() {
         </div>
       </section>
       <StatsRow
-        stats={[
-          { number: '35+', label: 'Years Experience' },
-          { number: '100+', label: 'Happy Clients' },
-          { number: '5.0', label: 'Star Service' },
-        ]}
+        stats={companyStats}
       />
 
       {/* Expandable CTA Section */}
