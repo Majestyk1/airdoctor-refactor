@@ -1,0 +1,17 @@
+html, body, #root {
+  width: 100%;
+  overflow-x: hidden !important;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+} 
