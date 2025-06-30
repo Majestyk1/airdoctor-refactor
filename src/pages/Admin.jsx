@@ -36,7 +36,7 @@ function Admin() {
   // Show admin dashboard if logged in
   if (isLoggedIn) {
     return (
-      <div className="admin-dashboard min-h-screen bg-gray-50 py-8">
+      <div className="admin-dashboard min-h-screen bg-gray-50 py-8 pt-24">
         <div className="admin-dashboard__container max-w-4xl mx-auto px-4">
           <div className="admin-dashboard__header flex items-center justify-between mb-8">
             <h1 className="admin-dashboard__title text-3xl font-bold text-gray-800">
