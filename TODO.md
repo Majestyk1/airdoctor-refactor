@@ -12,9 +12,9 @@
 
 ## 2. Define Content Structure
 
-- [ ] List all site sections that need to be editable (e.g. Hero, About, Services, Projects, Contact)
-- [ ] For each section, define what fields are editable (e.g. title, subtitle, images, descriptions)
-- [ ] Design Firestore collections/documents for each section, e.g.:
+- [x] List all site sections that need to be editable (e.g. Hero, About, Services, Projects, Contact)
+- [x] For each section, define what fields are editable (e.g. title, subtitle, images, descriptions)
+- [x] Design Firestore collections/documents for each section, e.g.:
     - `/content/hero`
     - `/content/about`
     - `/content/services`
@@ -25,10 +25,10 @@
 
 ## 3. Integrate Firebase with React App
 
-- [ ] Install Firebase SDK:  
+- [x] Install Firebase SDK:  
   `npm install firebase`
-- [ ] Create a `src/utils/firebase.js` to initialize Firebase and export Firestore, Storage, and Auth instances
-- [ ] Add environment variables for Firebase config (use `.env`)
+- [x] Create a `src/utils/firebase.js` to initialize Firebase and export Firestore, Storage, and Auth instances
+- [x] Add environment variables for Firebase config (use `.env`)
 
 ---
 
