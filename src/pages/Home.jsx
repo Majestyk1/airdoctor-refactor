@@ -8,6 +8,7 @@ import ServiceCard, { ServiceModal } from '../components/common/ServiceCard'
 import AnimatedButton from '../components/common/AnimatedButton'
 import { motion } from 'framer-motion'
 import { servicesData } from '../constants'
+import { iconMap } from '../constants/iconMap'
 
 
 function Home() {
@@ -129,16 +130,19 @@ function Home() {
             What We Do Best
           </h2>
           <div className="home-whatwedo__grid grid grid-cols-1 md:grid-cols-3 gap-8">
-            {servicesData.map((service) => (
-              <ServiceCard
-                key={service.title}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                poster={service.poster}
-                onClick={() => handleCardClick(service)}
-              />
-            ))}
+            {servicesData.map((service) => {
+              const Icon = iconMap[service.icon] || service.icon // fallback to service.icon if already a component
+              return (
+                <ServiceCard
+                  key={service.title}
+                  icon={Icon}
+                  title={service.title}
+                  description={service.description}
+                  poster={service.poster}
+                  onClick={() => handleCardClick(service)}
+                />
+              )
+            })}
           </div>
         </div>
       </section>

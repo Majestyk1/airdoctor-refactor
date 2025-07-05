@@ -4,6 +4,7 @@ import { db } from '../utils/firebase'
 import HeroSection from '../components/common/HeroSection'
 import ServiceCard, { ServiceModal } from '../components/common/ServiceCard'
 import { projectsData } from '../constants'
+import { iconMap } from '../constants/iconMap'
 
 function Projects() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -95,17 +96,20 @@ function Projects() {
       <section className="projects-list py-16 bg-white">
         <div className="projects-list__container container mx-auto px-4">
           <div className="projects-list__grid grid grid-cols-1 md:grid-cols-3 gap-8">
-            {projectsData.map((project, idx) => (
-              <ServiceCard
-                key={idx}
-                icon={project.icon}
-                title={project.title}
-                description={project.description}
-                poster={project.poster}
-                onClick={() => handleCardClick(project)}
-                className="projects-list__item"
-              />
-            ))}
+            {projectsData.map((project, idx) => {
+              const Icon = iconMap[project.icon] || project.icon // fallback to project.icon if already a component
+              return (
+                <ServiceCard
+                  key={idx}
+                  icon={Icon}
+                  title={project.title}
+                  description={project.description}
+                  poster={project.poster}
+                  onClick={() => handleCardClick(project)}
+                  className="projects-list__item"
+                />
+              )
+            })}
           </div>
         </div>
       </section>

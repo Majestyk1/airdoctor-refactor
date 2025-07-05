@@ -4,6 +4,8 @@ import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebas
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { auth, db } from '../utils/firebase'
 import HeroForm from '../components/common/HeroForm'
+import ServiceCardsForm from '../components/common/ServiceCardsForm'
+import { servicesData, projectsData } from '../constants'
 
 function Admin() {
   const [error, setError] = useState('')
@@ -76,6 +78,22 @@ function Admin() {
   })
   
   const [saveStatus, setSaveStatus] = useState('')
+
+  const [serviceCards, setServiceCards] = useState(servicesData.map(card => ({
+    ...card,
+    icon: typeof card.icon === 'string' ? card.icon : (card.icon?.name?.toLowerCase() || '')
+  })))
+  const [isSavingServiceCards, setIsSavingServiceCards] = useState(false)
+  const [serviceCardsSuccess, setServiceCardsSuccess] = useState('')
+  const [serviceCardsError, setServiceCardsError] = useState('')
+
+  const [projectCards, setProjectCards] = useState(projectsData.map(card => ({
+    ...card,
+    icon: typeof card.icon === 'string' ? card.icon : (card.icon?.name?.toLowerCase() || '')
+  })))
+  const [isSavingProjectCards, setIsSavingProjectCards] = useState(false)
+  const [projectCardsSuccess, setProjectCardsSuccess] = useState('')
+  const [projectCardsError, setProjectCardsError] = useState('')
 
   // Check auth state on component mount
   useEffect(() => {
@@ -244,6 +262,36 @@ function Admin() {
       console.error('Error saving contact content:', error)
       setSaveStatus('Error saving Contact content')
     }
+  }
+
+  const handleSaveServiceCards = async (data) => {
+    setIsSavingServiceCards(true)
+    setServiceCardsError('')
+    setServiceCardsSuccess('')
+    try {
+      // TODO: Save to backend (e.g., Firestore)
+      setServiceCards(data.cards)
+      setServiceCardsSuccess('Service cards saved (not yet persisted to backend).')
+      setTimeout(() => setServiceCardsSuccess(''), 3000)
+    } catch (err) {
+      setServiceCardsError('Failed to save service cards.')
+    }
+    setIsSavingServiceCards(false)
+  }
+
+  const handleSaveProjectCards = async (data) => {
+    setIsSavingProjectCards(true)
+    setProjectCardsError('')
+    setProjectCardsSuccess('')
+    try {
+      // TODO: Save to backend (e.g., Firestore)
+      setProjectCards(data.cards)
+      setProjectCardsSuccess('Project cards saved (not yet persisted to backend).')
+      setTimeout(() => setProjectCardsSuccess(''), 3000)
+    } catch (err) {
+      setProjectCardsError('Failed to save project cards.')
+    }
+    setIsSavingProjectCards(false)
   }
 
   // Show admin dashboard if logged in
@@ -659,6 +707,34 @@ function Admin() {
                   {isSubmittingContact ? 'Saving...' : 'Save Hero Content'}
                 </button>
               </form>
+            </div>
+
+            {/* Service Cards Management Section */}
+            <div className="admin-section bg-white border rounded-lg p-6 shadow-sm">
+              <h2 className="admin-section__title text-xl font-semibold text-gray-800 mb-4">
+                Project Cards (Home Page)
+              </h2>
+              <ServiceCardsForm
+                defaultValues={{ cards: serviceCards }}
+                onSubmit={handleSaveServiceCards}
+                isLoading={isSavingServiceCards}
+                error={serviceCardsError}
+                successMessage={serviceCardsSuccess}
+              />
+            </div>
+
+            {/* Project Cards Management Section */}
+            <div className="admin-section bg-white border rounded-lg p-6 shadow-sm">
+              <h2 className="admin-section__title text-xl font-semibold text-gray-800 mb-4">
+                Project Cards (Projects Page)
+              </h2>
+              <ServiceCardsForm
+                defaultValues={{ cards: projectCards }}
+                onSubmit={handleSaveProjectCards}
+                isLoading={isSavingProjectCards}
+                error={projectCardsError}
+                successMessage={projectCardsSuccess}
+              />
             </div>
           </div>
         </div>
