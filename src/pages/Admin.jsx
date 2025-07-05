@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc, setDoc, deleteDoc, collection, getDocs, addDoc } from 'firebase/firestore'
 import { auth, db } from '../utils/firebase'
-import HeroForm from '../components/common/HeroForm'
 import ServiceCardsForm from '../components/common/ServiceCardsForm'
 import { projectsData } from '../constants'
 

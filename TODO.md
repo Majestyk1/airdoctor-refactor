@@ -82,7 +82,7 @@ Each project will be a separate document:
 
 ### 📝 Step 7: Individual Cards Management
 - [x] Create service card management in admin(home/projects page)
-- [ ] Update public components to fetch individual cards(home page is fetching data correctly project page still needs to be done before cheking this task off)
+- [x] Update public components to fetch individual cards(home page is fetching data correctly project page still needs to be done before cheking this task off)
 - [ ] Add image upload functionality for projects
 
 ### 🚀 Step 8: Advanced Features
