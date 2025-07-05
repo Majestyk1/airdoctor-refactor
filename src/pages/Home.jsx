@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Volume2 } from 'lucide-react'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore'
 import { db } from '../utils/firebase'
 import HeroSection from '../components/common/HeroSection'
 import ServiceCard, { ServiceModal } from '../components/common/ServiceCard'
@@ -19,6 +19,11 @@ function Home() {
   const [heroContent, setHeroContent] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  // Service cards state
+  const [serviceCards, setServiceCards] = useState([])
+  const [cardsLoading, setCardsLoading] = useState(true)
+  const [cardsError, setCardsError] = useState(null)
 
   // Fetch hero content from Firestore
   useEffect(() => {
@@ -51,6 +56,27 @@ function Home() {
       setLoading(false)
     }
     fetchHeroContent()
+  }, [])
+
+  // Fetch service cards from Firestore
+  useEffect(() => {
+    async function fetchServiceCards() {
+      setCardsLoading(true)
+      setCardsError(null)
+      try {
+        const querySnapshot = await getDocs(collection(db, 'services'))
+        const cards = []
+        querySnapshot.forEach((doc) => {
+          cards.push({ id: doc.id, ...doc.data() })
+        })
+        setServiceCards(cards)
+      } catch (err) {
+        setCardsError('Failed to load service cards.')
+        console.error('Error fetching service cards:', err)
+      }
+      setCardsLoading(false)
+    }
+    fetchServiceCards()
   }, [])
 
   const handleCardClick = (service) => {
@@ -129,21 +155,36 @@ function Home() {
           <h2 className="home-whatwedo__title text-3xl md:text-4xl font-bold text-center mb-16">
             What We Do Best
           </h2>
-          <div className="home-whatwedo__grid grid grid-cols-1 md:grid-cols-3 gap-8">
-            {servicesData.map((service) => {
-              const Icon = iconMap[service.icon] || service.icon // fallback to service.icon if already a component
-              return (
-                <ServiceCard
-                  key={service.title}
-                  icon={Icon}
-                  title={service.title}
-                  description={service.description}
-                  poster={service.poster}
-                  onClick={() => handleCardClick(service)}
-                />
-              )
-            })}
-          </div>
+          {cardsLoading ? (
+            <div className="loading-state flex items-center justify-center p-8">
+              <div className="loading-state__spinner w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+              <span className="loading-state__text ml-3 text-gray-600">Loading cards...</span>
+            </div>
+          ) : cardsError ? (
+            <div className="error-state bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="error-state__header flex items-center mb-2">
+                <span className="error-state__icon text-red-500 mr-2">⚠️</span>
+                <h3 className="error-state__title text-red-800 font-medium">Error Loading Cards</h3>
+              </div>
+              <p className="error-state__message text-red-700">{cardsError}</p>
+            </div>
+          ) : (
+            <div className="home-whatwedo__grid grid grid-cols-1 md:grid-cols-3 gap-8">
+              {serviceCards.map((service) => {
+                const Icon = iconMap[service.icon] || service.icon
+                return (
+                  <ServiceCard
+                    key={service.id || service.title}
+                    icon={Icon}
+                    title={service.title}
+                    description={service.description}
+                    poster={service.poster}
+                    onClick={() => handleCardClick(service)}
+                  />
+                )
+              })}
+            </div>
+          )}
         </div>
       </section>
 

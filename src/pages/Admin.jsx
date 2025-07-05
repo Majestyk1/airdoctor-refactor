@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore'
 import { auth, db } from '../utils/firebase'
 import HeroForm from '../components/common/HeroForm'
 import ServiceCardsForm from '../components/common/ServiceCardsForm'
@@ -264,34 +264,64 @@ function Admin() {
     }
   }
 
-  const handleSaveServiceCards = async (data) => {
+  // Service Cards: Save a single card
+  const handleSaveServiceCard = async (card, idx) => {
     setIsSavingServiceCards(true)
     setServiceCardsError('')
     setServiceCardsSuccess('')
     try {
-      // TODO: Save to backend (e.g., Firestore)
-      setServiceCards(data.cards)
-      setServiceCardsSuccess('Service cards saved (not yet persisted to backend).')
-      setTimeout(() => setServiceCardsSuccess(''), 3000)
+      // Use card.id if present, otherwise generate from title
+      const cardId = card.id || card.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '')
+      await setDoc(doc(db, 'services', cardId), { ...card, id: cardId })
+      const updatedCards = [...serviceCards]
+      updatedCards[idx] = { ...card, id: cardId }
+      setServiceCards(updatedCards)
+      setServiceCardsSuccess(`Card "${card.title}" saved!`)
+      setTimeout(() => setServiceCardsSuccess(''), 2000)
     } catch (err) {
-      setServiceCardsError('Failed to save service cards.')
+      setServiceCardsError('Failed to save card.')
     }
     setIsSavingServiceCards(false)
   }
 
-  const handleSaveProjectCards = async (data) => {
+  // Service Cards: Remove handler (delete from Firestore)
+  const handleRemoveServiceCard = async (idx) => {
+    const card = serviceCards[idx]
+    if (!card || !card.id) {
+      setServiceCards(cards => cards.filter((_, i) => i !== idx))
+      return
+    }
+    try {
+      await deleteDoc(doc(db, 'services', card.id))
+      setServiceCards(cards => cards.filter((_, i) => i !== idx))
+    } catch (err) {
+      setServiceCardsError('Failed to delete card from Firestore.')
+    }
+  }
+
+  // Project Cards: Save a single card
+  const handleSaveProjectCard = (card, idx) => {
     setIsSavingProjectCards(true)
     setProjectCardsError('')
     setProjectCardsSuccess('')
     try {
-      // TODO: Save to backend (e.g., Firestore)
-      setProjectCards(data.cards)
-      setProjectCardsSuccess('Project cards saved (not yet persisted to backend).')
-      setTimeout(() => setProjectCardsSuccess(''), 3000)
+      const updatedCards = [...projectCards]
+      updatedCards[idx] = card
+      setProjectCards(updatedCards)
+      setProjectCardsSuccess(`Card "${card.title}" saved! (not yet persisted to backend).`)
+      setTimeout(() => setProjectCardsSuccess(''), 2000)
     } catch (err) {
-      setProjectCardsError('Failed to save project cards.')
+      setProjectCardsError('Failed to save card.')
     }
     setIsSavingProjectCards(false)
+  }
+
+  // Project Cards: Remove and Add handlers
+  const handleRemoveProjectCard = (idx) => {
+    setProjectCards(cards => cards.filter((_, i) => i !== idx))
+  }
+  const handleAddProjectCard = () => {
+    setProjectCards(cards => [...cards, { title: '', description: '', icon: '' }])
   }
 
   // Show admin dashboard if logged in
@@ -716,10 +746,11 @@ function Admin() {
               </h2>
               <ServiceCardsForm
                 defaultValues={{ cards: serviceCards }}
-                onSubmit={handleSaveServiceCards}
+                onSaveCard={handleSaveServiceCard}
                 isLoading={isSavingServiceCards}
                 error={serviceCardsError}
                 successMessage={serviceCardsSuccess}
+                onRemove={handleRemoveServiceCard}
               />
             </div>
 
@@ -730,10 +761,12 @@ function Admin() {
               </h2>
               <ServiceCardsForm
                 defaultValues={{ cards: projectCards }}
-                onSubmit={handleSaveProjectCards}
+                onSaveCard={handleSaveProjectCard}
                 isLoading={isSavingProjectCards}
                 error={projectCardsError}
                 successMessage={projectCardsSuccess}
+                onRemove={handleRemoveProjectCard}
+                onAdd={handleAddProjectCard}
               />
             </div>
           </div>
