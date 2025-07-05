@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore'
 import { db } from '../utils/firebase'
 import HeroSection from '../components/common/HeroSection'
 import ServiceCard, { ServiceModal } from '../components/common/ServiceCard'
-import { projectsData } from '../constants'
 import { iconMap } from '../constants/iconMap'
 
 function Projects() {
@@ -14,6 +13,11 @@ function Projects() {
   const [projectsContent, setProjectsContent] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  // Project cards state
+  const [projectCards, setProjectCards] = useState([])
+  const [cardsLoading, setCardsLoading] = useState(true)
+  const [cardsError, setCardsError] = useState(null)
 
   // Fetch projects content from Firestore
   useEffect(() => {
@@ -46,6 +50,27 @@ function Projects() {
       setLoading(false)
     }
     fetchProjectsContent()
+  }, [])
+
+  // Fetch project cards from Firestore
+  useEffect(() => {
+    async function fetchProjectCards() {
+      setCardsLoading(true)
+      setCardsError(null)
+      try {
+        const querySnapshot = await getDocs(collection(db, 'projects'))
+        const cards = []
+        querySnapshot.forEach((doc) => {
+          cards.push({ id: doc.id, ...doc.data() })
+        })
+        setProjectCards(cards)
+      } catch (err) {
+        setCardsError('Failed to load project cards.')
+        console.error('Error fetching project cards:', err)
+      }
+      setCardsLoading(false)
+    }
+    fetchProjectCards()
   }, [])
 
   const handleCardClick = (project) => {
@@ -95,22 +120,39 @@ function Projects() {
       />
       <section className="projects-list py-16 bg-white">
         <div className="projects-list__container container mx-auto px-4">
-          <div className="projects-list__grid grid grid-cols-1 md:grid-cols-3 gap-8">
-            {projectsData.map((project, idx) => {
-              const Icon = iconMap[project.icon] || project.icon // fallback to project.icon if already a component
-              return (
-                <ServiceCard
-                  key={idx}
-                  icon={Icon}
-                  title={project.title}
-                  description={project.description}
-                  poster={project.poster}
-                  onClick={() => handleCardClick(project)}
-                  className="projects-list__item"
-                />
-              )
-            })}
-          </div>
+          {cardsLoading ? (
+            <div className="loading-state flex items-center justify-center p-8">
+              <div className="loading-state__spinner w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+              <span className="loading-state__text ml-3 text-gray-600">Loading cards...</span>
+            </div>
+          ) : cardsError ? (
+            <div className="error-state bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-4">
+              <div className="error-state__header flex items-center mb-2">
+                <span className="error-state__icon text-red-500 mr-2">⚠️</span>
+                <h3 className="error-state__title text-red-800 font-medium">Error Loading Cards</h3>
+              </div>
+              <p className="error-state__message text-red-700">
+                {cardsError}
+              </p>
+            </div>
+          ) : (
+            <div className="projects-list__grid grid grid-cols-1 md:grid-cols-3 gap-8">
+              {projectCards.map((project, idx) => {
+                const Icon = iconMap[project.icon] || project.icon // fallback to project.icon if already a component
+                return (
+                  <ServiceCard
+                    key={project.id || idx}
+                    icon={Icon}
+                    title={project.title}
+                    description={project.description}
+                    poster={project.poster}
+                    onClick={() => handleCardClick(project)}
+                    className="projects-list__item"
+                  />
+                )
+              })}
+            </div>
+          )}
         </div>
       </section>
 

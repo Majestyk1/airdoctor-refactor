@@ -1,6 +1,7 @@
 import { useForm, useFieldArray } from 'react-hook-form'
+import { useState } from 'react'
 
-function ServiceCardsForm({ defaultValues, onSaveCard, isLoading, error, successMessage, onRemove, onAdd }) {
+function ServiceCardsForm({ defaultValues, onSaveCard, onRemove, onAdd }) {
   const { control, register, handleSubmit, formState: { errors }, getValues, reset } = useForm({
     defaultValues: defaultValues || { cards: [] }
   })
@@ -9,9 +10,27 @@ function ServiceCardsForm({ defaultValues, onSaveCard, isLoading, error, success
     name: 'cards'
   })
 
+  // Per-card state
+  const [savingIdx, setSavingIdx] = useState(null)
+  const [successIdx, setSuccessIdx] = useState(null)
+  const [errorIdx, setErrorIdx] = useState(null)
+  const [errorMsg, setErrorMsg] = useState('')
+
   // Save a single card by index
-  const handleSave = (idx) => handleSubmit((data) => {
-    if (onSaveCard) onSaveCard(data.cards[idx], idx)
+  const handleSave = (idx) => handleSubmit(async (data) => {
+    setSavingIdx(idx)
+    setSuccessIdx(null)
+    setErrorIdx(null)
+    setErrorMsg('')
+    try {
+      await onSaveCard?.(data.cards[idx], idx)
+      setSuccessIdx(idx)
+      setTimeout(() => setSuccessIdx(null), 2000)
+    } catch (e) {
+      setErrorIdx(idx)
+      setErrorMsg(e?.message || 'Failed to save card.')
+    }
+    setSavingIdx(null)
   })
 
   // Remove a card by index
@@ -67,6 +86,28 @@ function ServiceCardsForm({ defaultValues, onSaveCard, isLoading, error, success
                 <span className="service-cards-form__error text-red-600 text-xs">{errors.cards[idx].description.message}</span>
               )}
             </div>
+            <div className="service-cards-form__field mt-2">
+              <label className="service-cards-form__label block text-sm font-medium mb-1">Poster (Image URL)</label>
+              <input
+                {...register(`cards.${idx}.poster`, { maxLength: 300 })}
+                className="service-cards-form__input w-full px-3 py-2 border rounded"
+                placeholder="/src/assets/images/test.jpg"
+              />
+              {errors.cards?.[idx]?.poster && (
+                <span className="service-cards-form__error text-red-600 text-xs">{errors.cards[idx].poster.message}</span>
+              )}
+            </div>
+            <div className="service-cards-form__field mt-2">
+              <label className="service-cards-form__label block text-sm font-medium mb-1">Video (URL or Path)</label>
+              <input
+                {...register(`cards.${idx}.video`, { maxLength: 300 })}
+                className="service-cards-form__input w-full px-3 py-2 border rounded"
+                placeholder="/src/assets/images/cold-720p-trimmed.mp4"
+              />
+              {errors.cards?.[idx]?.video && (
+                <span className="service-cards-form__error text-red-600 text-xs">{errors.cards[idx].video.message}</span>
+              )}
+            </div>
             <div className="flex items-center gap-2 mt-4">
               <button
                 type="button"
@@ -77,20 +118,20 @@ function ServiceCardsForm({ defaultValues, onSaveCard, isLoading, error, success
               </button>
               <button
                 type="submit"
-                disabled={isLoading}
+                disabled={savingIdx === idx}
                 className="service-cards-form__save bg-blue-600 text-white px-4 py-2 rounded ml-auto"
               >
-                {isLoading ? 'Saving...' : 'Save Card'}
+                {savingIdx === idx ? 'Saving...' : 'Save Card'}
               </button>
             </div>
-            {successMessage && (
+            {successIdx === idx && (
               <div className="service-cards-form__success text-green-700 bg-green-50 border border-green-200 rounded p-2 mt-2">
-                {successMessage}
+                Card saved!
               </div>
             )}
-            {error && (
+            {errorIdx === idx && (
               <div className="service-cards-form__error text-red-700 bg-red-50 border border-red-200 rounded p-2 mt-2">
-                {error}
+                {errorMsg}
               </div>
             )}
           </form>

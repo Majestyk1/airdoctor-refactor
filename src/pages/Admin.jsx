@@ -287,9 +287,6 @@ function Admin() {
 
   // Service Cards: Save a single card
   const handleSaveServiceCard = async (card, idx) => {
-    setIsSavingServiceCards(true)
-    setServiceCardsError('')
-    setServiceCardsSuccess('')
     try {
       let cardId = card.id
       if (cardId) {
@@ -300,13 +297,17 @@ function Admin() {
         const docRef = await addDoc(collection(db, 'services'), card)
         cardId = docRef.id
       }
-      setServiceCardsSuccess(`Card "${card.title}" saved!`)
-      setTimeout(() => setServiceCardsSuccess(''), 2000)
-      await fetchServiceCards()
+      // Refresh cards from Firestore
+      const querySnapshot = await getDocs(collection(db, 'services'))
+      const cards = []
+      querySnapshot.forEach((doc) => {
+        cards.push({ id: doc.id, ...doc.data() })
+      })
+      setServiceCards(cards)
+      return true
     } catch (err) {
-      setServiceCardsError('Failed to save card.')
+      throw new Error('Failed to save card.')
     }
-    setIsSavingServiceCards(false)
   }
 
   // Service Cards: Remove handler (delete from Firestore)
@@ -324,16 +325,56 @@ function Admin() {
     }
   }
 
+  // Fetch all project cards from Firestore
+  const fetchProjectCards = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'projects'))
+      const cards = []
+      querySnapshot.forEach((doc) => {
+        cards.push({ id: doc.id, ...doc.data() })
+      })
+      // Debug: Log all cards and highlight missing fields
+      cards.forEach((card, idx) => {
+        if (!card.title || !card.icon || !card.description) {
+          console.warn(`Project card at index ${idx} (id: ${card.id}) is missing required fields:`, card)
+        }
+      })
+      setProjectCards(cards)
+    } catch (err) {
+      setProjectCardsError('Failed to load project cards from Firestore.')
+    }
+  }
+
+  // Load project cards on mount and after login
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchProjectCards()
+    }
+  }, [isLoggedIn])
+
   // Project Cards: Save a single card
-  const handleSaveProjectCard = (card, idx) => {
+  const handleSaveProjectCard = async (card, idx) => {
     setIsSavingProjectCards(true)
     setProjectCardsError('')
     setProjectCardsSuccess('')
     try {
-      const updatedCards = [...projectCards]
-      updatedCards[idx] = card
-      setProjectCards(updatedCards)
-      setProjectCardsSuccess(`Card "${card.title}" saved! (not yet persisted to backend).`)
+      let cardId = card.id
+      if (cardId) {
+        // Update existing card
+        await setDoc(doc(db, 'projects', cardId), { ...card, id: cardId })
+      } else {
+        // Add new card
+        const docRef = await addDoc(collection(db, 'projects'), card)
+        cardId = docRef.id
+      }
+      // Refresh cards from Firestore
+      const querySnapshot = await getDocs(collection(db, 'projects'))
+      const cards = []
+      querySnapshot.forEach((doc) => {
+        cards.push({ id: doc.id, ...doc.data() })
+      })
+      setProjectCards(cards)
+      setProjectCardsSuccess(`Card "${card.title}" saved!`)
       setTimeout(() => setProjectCardsSuccess(''), 2000)
     } catch (err) {
       setProjectCardsError('Failed to save card.')
@@ -341,10 +382,28 @@ function Admin() {
     setIsSavingProjectCards(false)
   }
 
-  // Project Cards: Remove and Add handlers
-  const handleRemoveProjectCard = (idx) => {
-    setProjectCards(cards => cards.filter((_, i) => i !== idx))
+  // Project Cards: Remove handler (delete from Firestore)
+  const handleRemoveProjectCard = async (idx) => {
+    const card = projectCards[idx]
+    if (!card || !card.id) {
+      setProjectCards(cards => cards.filter((_, i) => i !== idx))
+      return
+    }
+    try {
+      await deleteDoc(doc(db, 'projects', card.id))
+      // Refresh cards from Firestore
+      const querySnapshot = await getDocs(collection(db, 'projects'))
+      const cards = []
+      querySnapshot.forEach((doc) => {
+        cards.push({ id: doc.id, ...doc.data() })
+      })
+      setProjectCards(cards)
+    } catch (err) {
+      setProjectCardsError('Failed to delete card from Firestore.')
+    }
   }
+
+  // Project Cards: Remove and Add handlers
   const handleAddProjectCard = () => {
     setProjectCards(cards => [...cards, { title: '', description: '', icon: '' }])
   }
@@ -778,9 +837,6 @@ function Admin() {
                 <ServiceCardsForm
                   defaultValues={{ cards: serviceCards }}
                   onSaveCard={handleSaveServiceCard}
-                  isLoading={isSavingServiceCards}
-                  error={serviceCardsError}
-                  successMessage={serviceCardsSuccess}
                   onRemove={handleRemoveServiceCard}
                 />
               )}
