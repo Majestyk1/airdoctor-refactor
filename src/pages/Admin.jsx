@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
-import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, deleteDoc, collection, getDocs, addDoc } from 'firebase/firestore'
 import { auth, db } from '../utils/firebase'
 import HeroForm from '../components/common/HeroForm'
 import ServiceCardsForm from '../components/common/ServiceCardsForm'
-import { servicesData, projectsData } from '../constants'
+import { projectsData } from '../constants'
 
 function Admin() {
   const [error, setError] = useState('')
@@ -79,10 +79,8 @@ function Admin() {
   
   const [saveStatus, setSaveStatus] = useState('')
 
-  const [serviceCards, setServiceCards] = useState(servicesData.map(card => ({
-    ...card,
-    icon: typeof card.icon === 'string' ? card.icon : (card.icon?.name?.toLowerCase() || '')
-  })))
+  const [serviceCards, setServiceCards] = useState([])
+  const [serviceCardsLoading, setServiceCardsLoading] = useState(true)
   const [isSavingServiceCards, setIsSavingServiceCards] = useState(false)
   const [serviceCardsSuccess, setServiceCardsSuccess] = useState('')
   const [serviceCardsError, setServiceCardsError] = useState('')
@@ -264,20 +262,47 @@ function Admin() {
     }
   }
 
+  // Fetch all service cards from Firestore
+  const fetchServiceCards = async () => {
+    setServiceCardsLoading(true)
+    try {
+      const querySnapshot = await getDocs(collection(db, 'services'))
+      const cards = []
+      querySnapshot.forEach((doc) => {
+        cards.push({ id: doc.id, ...doc.data() })
+      })
+      setServiceCards(cards)
+    } catch (err) {
+      setServiceCardsError('Failed to load service cards from Firestore.')
+    }
+    setServiceCardsLoading(false)
+  }
+
+  // Load service cards on mount and after login
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchServiceCards()
+    }
+  }, [isLoggedIn])
+
   // Service Cards: Save a single card
   const handleSaveServiceCard = async (card, idx) => {
     setIsSavingServiceCards(true)
     setServiceCardsError('')
     setServiceCardsSuccess('')
     try {
-      // Use card.id if present, otherwise generate from title
-      const cardId = card.id || card.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '')
-      await setDoc(doc(db, 'services', cardId), { ...card, id: cardId })
-      const updatedCards = [...serviceCards]
-      updatedCards[idx] = { ...card, id: cardId }
-      setServiceCards(updatedCards)
+      let cardId = card.id
+      if (cardId) {
+        // Update existing card
+        await setDoc(doc(db, 'services', cardId), { ...card, id: cardId })
+      } else {
+        // Add new card
+        const docRef = await addDoc(collection(db, 'services'), card)
+        cardId = docRef.id
+      }
       setServiceCardsSuccess(`Card "${card.title}" saved!`)
       setTimeout(() => setServiceCardsSuccess(''), 2000)
+      await fetchServiceCards()
     } catch (err) {
       setServiceCardsError('Failed to save card.')
     }
@@ -293,7 +318,7 @@ function Admin() {
     }
     try {
       await deleteDoc(doc(db, 'services', card.id))
-      setServiceCards(cards => cards.filter((_, i) => i !== idx))
+      await fetchServiceCards()
     } catch (err) {
       setServiceCardsError('Failed to delete card from Firestore.')
     }
@@ -744,14 +769,21 @@ function Admin() {
               <h2 className="admin-section__title text-xl font-semibold text-gray-800 mb-4">
                 Project Cards (Home Page)
               </h2>
-              <ServiceCardsForm
-                defaultValues={{ cards: serviceCards }}
-                onSaveCard={handleSaveServiceCard}
-                isLoading={isSavingServiceCards}
-                error={serviceCardsError}
-                successMessage={serviceCardsSuccess}
-                onRemove={handleRemoveServiceCard}
-              />
+              {serviceCardsLoading ? (
+                <div className="loading-state flex items-center justify-center p-8">
+                  <div className="loading-state__spinner w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                  <span className="loading-state__text ml-3 text-gray-600">Loading cards...</span>
+                </div>
+              ) : (
+                <ServiceCardsForm
+                  defaultValues={{ cards: serviceCards }}
+                  onSaveCard={handleSaveServiceCard}
+                  isLoading={isSavingServiceCards}
+                  error={serviceCardsError}
+                  successMessage={serviceCardsSuccess}
+                  onRemove={handleRemoveServiceCard}
+                />
+              )}
             </div>
 
             {/* Project Cards Management Section */}
