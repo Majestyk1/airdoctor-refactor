@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../utils/firebase'
 import HeroSection from '../components/common/HeroSection'
 import InfoCard from '../components/common/InfoCard'
 import ModalPortal from '../components/common/ModalPortal'
@@ -6,12 +9,49 @@ import { Mail, Phone, Clipboard, Clock, CheckCircle2, XCircle } from 'lucide-rea
 import { useForm } from 'react-hook-form'
 import emailjs from '@emailjs/browser'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 import LocationMap from '../components/common/LacationMap'
 
 function Contact() {
   // Modal state for feedback
   const [modal, setModal] = useState({ open: false, success: true, message: '' })
+  
+  // Contact content state
+  const [contactContent, setContactContent] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  // Fetch contact content from Firestore
+  useEffect(() => {
+    async function fetchContactContent() {
+      setLoading(true)
+      setError(null)
+      try {
+        const docRef = doc(db, 'content', 'contact')
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          setContactContent(docSnap.data())
+        } else {
+          // If no content exists, use fallback content
+          setContactContent({
+            title: 'Contact AirDoctor HVACR',
+            subtitle: 'Chris is ready to help with your next project, answer your questions, or just talk shop.',
+            accent: "Let's Connect!"
+          })
+        }
+      } catch (err) {
+        setError('Failed to load contact content.')
+        console.error('Error fetching contact content:', err)
+        // Use fallback content on error
+        setContactContent({
+          title: 'Contact AirDoctor HVACR',
+          subtitle: 'Chris is ready to help with your next project, answer your questions, or just talk shop.',
+          accent: "Let's Connect!"
+        })
+      }
+      setLoading(false)
+    }
+    fetchContactContent()
+  }, [])
 
   // react-hook-form setup
   const {
@@ -41,13 +81,40 @@ function Contact() {
   // Dodgers blue glassy background for form
   const formCardBg = 'bg-gradient-to-br from-blue-900/80 via-blue-700/70 to-blue-500/60 backdrop-blur-xl border border-blue-200/40 shadow-2xl'
 
+  if (loading) {
+    return (
+      <div className="contact-loading min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500">
+        <div className="loading-state flex items-center justify-center p-8">
+          <div className="loading-state__spinner w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+          <span className="loading-state__text ml-3 text-white">Loading...</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="contact-error min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500">
+        <div className="error-state bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-4">
+          <div className="error-state__header flex items-center mb-2">
+            <span className="error-state__icon text-red-500 mr-2">⚠️</span>
+            <h3 className="error-state__title text-red-800 font-medium">Error Loading Content</h3>
+          </div>
+          <p className="error-state__message text-red-700">
+            {error}
+          </p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       {/* Hero Section */}
       <HeroSection
-        title="Contact AirDoctor HVACR"
-        subtitle="Chris is ready to help with your next project, answer your questions, or just talk shop."
-        accent="Let's Connect!"
+        title={contactContent?.title}
+        subtitle={contactContent?.subtitle}
+        accent={contactContent?.accent}
       />
 
       {/* Info Cards */}

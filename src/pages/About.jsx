@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../utils/firebase'
 import HeroSection from '../components/common/HeroSection'
 import InfoCard from '../components/common/InfoCard'
 import StatsRow from '../components/common/StatsRow'
@@ -8,16 +10,82 @@ import { companyStats } from '../constants'
 
 function About() {
   const [ctaExpanded, setCtaExpanded] = useState(false)
+  
+  // About content state
+  const [aboutContent, setAboutContent] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  // Fetch about content from Firestore
+  useEffect(() => {
+    async function fetchAboutContent() {
+      setLoading(true)
+      setError(null)
+      try {
+        const docRef = doc(db, 'content', 'about')
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          setAboutContent(docSnap.data())
+        } else {
+          // If no content exists, use fallback content
+          setAboutContent({
+            title: 'Where HVACR Excellence Meets',
+            accent: 'Dodgers Spirit',
+            subtitle: 'Chris Garcia, owner & director of AirDoctor HVACR, brings championship-level service to Central Texas.'
+          })
+        }
+      } catch (err) {
+        setError('Failed to load about content.')
+        console.error('Error fetching about content:', err)
+        // Use fallback content on error
+        setAboutContent({
+          title: 'Where HVACR Excellence Meets',
+          accent: 'Dodgers Spirit',
+          subtitle: 'Chris Garcia, owner & director of AirDoctor HVACR, brings championship-level service to Central Texas.'
+        })
+      }
+      setLoading(false)
+    }
+    fetchAboutContent()
+  }, [])
 
   const toggleCta = () => {
     setCtaExpanded(!ctaExpanded)
   }
 
+  if (loading) {
+    return (
+      <div className="about-loading min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-blue-50 to-blue-100">
+        <div className="loading-state flex items-center justify-center p-8">
+          <div className="loading-state__spinner w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <span className="loading-state__text ml-3 text-blue-600">Loading...</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="about-error min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-blue-50 to-blue-100">
+        <div className="error-state bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-4">
+          <div className="error-state__header flex items-center mb-2">
+            <span className="error-state__icon text-red-500 mr-2">⚠️</span>
+            <h3 className="error-state__title text-red-800 font-medium">Error Loading Content</h3>
+          </div>
+          <p className="error-state__message text-red-700">
+            {error}
+          </p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <main className="about-page bg-white min-h-screen w-full overflow-x-hidden">
       <HeroSection
-        title="Where HVACR Excellence Meets Dodgers Spirit"
-        subtitle="Chris Garcia, owner & director of AirDoctor HVACR, brings championship-level service to Central Texas."
+        title={aboutContent?.title}
+        subtitle={aboutContent?.subtitle}
+        accent={aboutContent?.accent}
       />
       <section className="about-info py-12 bg-gradient-to-br from-white via-blue-50 to-blue-100">
         <div className="container mx-auto px-4">
