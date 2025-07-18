@@ -15,9 +15,15 @@ function InfoCard({ avatar, name, role, bio, extra, className = '' }) {
       role="button"
       aria-label={isExpanded ? `Click to collapse ${name}'s info` : `Click to expand ${name}'s info`}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleExpanded(); } }}
+      onBlur={(e) => {
+        // Clear focus when clicking outside
+        if (document.activeElement && document.activeElement.blur) {
+          document.activeElement.blur();
+        }
+      }}
     >
-      {/* Teal glow on hover/focus */}
-      <span className="info-card__glow pointer-events-none absolute -inset-4 z-0 rounded-2xl blur-2xl bg-gradient-to-tr from-[#178582]/30 to-[#0F5F5C]/30 opacity-0 group-hover:opacity-80 group-focus:opacity-80 transition duration-300" />
+      {/* Teal glow on hover only */}
+      <span className="info-card__glow pointer-events-none absolute -inset-4 z-0 rounded-2xl blur-2xl bg-gradient-to-tr from-[#178582]/30 to-[#0F5F5C]/30 opacity-0 group-hover:opacity-80 transition duration-300" />
       
       <div className="relative z-10 flex flex-col items-center">
         {/* Avatar */}

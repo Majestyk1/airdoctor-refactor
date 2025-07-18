@@ -107,59 +107,61 @@ function About() {
         <div className="about-cta__container container mx-auto px-4 max-w-md">
           <motion.div 
             onClick={toggleCta}
-            className="about-cta__card group transition-all duration-300 rounded-2xl bg-[#2D3748]/80 backdrop-blur-xl shadow-lg shadow-[#178582]/20 hover:bg-[#2D3748]/90 hover:scale-[1.02] p-6 md:p-8 cursor-pointer"
+            className="about-cta__card group transition-all duration-300 rounded-2xl bg-[#1A2332]/80 backdrop-blur-xl shadow-lg border border-[#178582]/40 hover:bg-[#178582]/20 hover:border-[#178582]/60 hover:scale-[1.02] p-6 md:p-8 cursor-pointer"
             tabIndex={0}
             role="button"
             aria-label={ctaExpanded ? "Click to collapse contact info" : "Click to expand contact info"}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCta(); } }}
           >
             {/* Title - Always visible */}
-            <h2 className="about-cta__title text-2xl md:text-3xl font-bold mb-3 text-white">
-              Let's Connect!
-            </h2>
+            <div>
+              <h2 className="about-cta__title text-2xl md:text-3xl font-bold mb-3 text-white">
+                Let's Connect!
+              </h2>
 
-            {/* Expandable Content */}
-            <AnimatePresence mode="wait">
-              {ctaExpanded ? (
-                <motion.div
-                  key="expanded"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="about-cta__expanded-content w-full"
-                >
-                  <p className="about-cta__text text-lg text-gray-300 max-w-2xl mx-auto mb-6">
-                    Got a project or want to talk shop? Chris is always happy to chat HVACR, tech, or Texas weather. Reach out and let's make something cool happen—with a little Dodgers magic!
-                  </p>
-                  
-                  {/* CTA Button - Matching AnimatedButton hover effects */}
-                  <Link 
-                    to="/contact" 
-                    className="about-cta__button inline-block px-6 py-3 bg-[#178582] hover:bg-[#0F5F5C] text-white font-semibold rounded-lg shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#178582] focus:ring-offset-2 hover:shadow-[#178582]/50 active:scale-95 active:shadow-inner cursor-pointer mb-4"
-                    onClick={(e) => e.stopPropagation()} // Prevent card collapse when clicking button
+              {/* Expandable Content */}
+              <AnimatePresence mode="wait">
+                {ctaExpanded ? (
+                  <motion.div
+                    key="expanded"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="about-cta__expanded-content w-full"
                   >
-                    Get In Touch
-                  </Link>
-                  
-                  <p className="about-cta__collapse-hint text-[#178582] font-medium text-sm">
-                    Click to collapse
-                  </p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="collapsed"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <p className="about-cta__expand-hint text-[#178582] font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    Click for more info
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    <p className="about-cta__text text-lg text-gray-300 max-w-2xl mx-auto mb-6">
+                      Got a project or want to talk shop? Chris is always happy to chat HVACR, tech, or Texas weather. Reach out and let's make something cool happen—with a little Dodgers magic!
+                    </p>
+                    
+                    {/* CTA Button - Matching AnimatedButton hover effects */}
+                    <Link 
+                      to="/contact" 
+                      className="about-cta__button inline-block px-6 py-3 bg-[#178582] hover:bg-[#0F5F5C] text-white font-semibold rounded-lg shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#178582] focus:ring-offset-2 hover:shadow-[#178582]/50 active:scale-95 active:shadow-inner cursor-pointer mb-4"
+                      onClick={(e) => e.stopPropagation()} // Prevent card collapse when clicking button
+                    >
+                      Get In Touch
+                    </Link>
+                    
+                    <p className="about-cta__collapse-hint text-[#178582] font-medium text-sm">
+                      Click to collapse
+                    </p>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="collapsed"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <p className="about-cta__expand-hint text-[#178582] font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      Click for more info
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
         </div>
       </section>

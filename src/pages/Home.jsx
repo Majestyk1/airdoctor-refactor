@@ -111,26 +111,20 @@ function Home() {
         </div>
       ) : (
         <HeroSection
-          title={
-            <>
-              {heroContent?.title}{' '}
-              {heroContent?.accent && (
-                <span className="hero-section__title_accent text-blue-400">{heroContent.accent}</span>
-              )}
-            </>
-          }
+          title={heroContent?.title}
+          accent={heroContent?.accent}
           subtitle={heroContent?.subtitle}
         >
           <div className="hero-section__actions flex flex-col sm:flex-row gap-4 items-center justify-center mt-6">
             <Link to="/projects" className="w-full sm:w-auto">
-              <AnimatedButton className="hero-section__button w-full sm:w-auto rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2">
+              <AnimatedButton className="hero-section__button w-full sm:w-auto rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2 bg-[#178582] hover:bg-[#0F5F5C] text-white border border-[#178582]/40 shadow-lg hover:shadow-[#178582]/50">
                 <span className="hero-section__button-content flex items-center gap-2">
                   See Our Work
                 </span>
               </AnimatedButton>
             </Link>
             <Link to="/contact" className="w-full sm:w-auto">
-              <AnimatedButton className="hero-section__button w-full sm:w-auto rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-blue-200/40">
+              <AnimatedButton className="hero-section__button w-full sm:w-auto rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2 bg-[#1A2332]/80 hover:bg-[#2D3748]/90 text-white border border-[#178582]/40 backdrop-blur-sm">
                 <span className="hero-section__button-content flex items-center gap-2">
                   <span className="hero-section__button-icon flex items-center">
                     <Volume2 className="w-5 h-5" />

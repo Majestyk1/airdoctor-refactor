@@ -14,24 +14,27 @@ function ServiceCard({ icon: Icon, title, description, poster, className = '', o
       tabIndex={0}
       role="button"
       aria-label={`Learn more about ${title}`}
+      onBlur={(e) => {
+        // Clear focus when clicking outside
+        if (document.activeElement && document.activeElement.blur) {
+          document.activeElement.blur();
+        }
+      }}
     >
-      {/* Static Poster Image */}
-      {poster && (
-        <img
-          src={poster}
-          alt={`${title} service`}
-          className="service-card__poster absolute inset-0 w-full h-full object-cover z-0"
-          loading="lazy"
-        />
-      )}
-      {/* Overlay for readability */}
-      <div className="service-card__overlay absolute inset-0 bg-black/50 z-10" />
+      {/* Themed background instead of static image */}
+      <div className="service-card__background absolute inset-0 bg-gradient-to-br from-[#0A1828] via-[#1A2332] to-[#2D3748] z-0"></div>
+      
+      {/* Subtle pattern overlay */}
+      <div className="service-card__pattern absolute inset-0 bg-[#178582]/5 opacity-30 z-0" style={{
+        backgroundImage: `radial-gradient(circle at 25% 25%, ${'#178582'}20 2px, transparent 2px), radial-gradient(circle at 75% 75%, ${'#178582'}20 2px, transparent 2px)`,
+        backgroundSize: '20px 20px'
+      }}></div>
 
-      {/* Blue blur glow on hover/focus */}
-      <div className="service-card__glow pointer-events-none absolute inset-0 z-20 rounded-2xl opacity-0 group-hover:opacity-80 group-focus:opacity-80 transition duration-300 blur-xl bg-[#178582]/40" />
+      {/* Teal blur glow on hover only */}
+      <div className="service-card__glow pointer-events-none absolute inset-0 z-20 rounded-2xl opacity-0 group-hover:opacity-80 transition duration-300 blur-xl bg-[#178582]/40" />
       
       <div className="service-card__content relative z-30 flex flex-col items-center">
-        {Icon && <Icon className="service-card__icon w-12 h-12 text-[#178582] mb-4 mx-auto transition-transform duration-300 group-hover:scale-110 group-focus:scale-110" />}
+        {Icon && <Icon className="service-card__icon w-12 h-12 text-[#178582] mb-4 mx-auto transition-transform duration-300 group-hover:scale-110" />}
         <h3 className="service-card__title text-xl font-bold mb-4 text-white drop-shadow-lg">{title}</h3>
         <p className="service-card__desc text-gray-100">{description}</p>
       </div>

@@ -30,10 +30,10 @@ function HeroSection({
         >
           <h1 className="hero-section__title text-3xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
             {title}{' '}
-            {accent && <span className="hero-section__title_accent text-blue-400">{accent}</span>}
+            {accent && <span className="hero-section__title_accent text-[#178582]">{accent}</span>}
           </h1>
           {subtitle && (
-            <p className="hero-section__subtitle text-base md:text-xl text-blue-100 max-w-2xl mx-auto mb-6">
+            <p className="hero-section__subtitle text-base md:text-xl text-gray-200 max-w-2xl mx-auto mb-6">
               {subtitle}
             </p>
           )}
