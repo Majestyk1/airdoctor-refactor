@@ -85,10 +85,10 @@ function Projects() {
 
   if (loading) {
     return (
-      <div className="projects-loading min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500">
+      <div className="projects-loading min-h-screen flex items-center justify-center bg-[#0A1828]">
         <div className="loading-state flex items-center justify-center p-8">
-          <div className="loading-state__spinner w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-          <span className="loading-state__text ml-3 text-white">Loading...</span>
+          <div className="loading-state__spinner w-8 h-8 border-4 border-[#178582] border-t-transparent rounded-full animate-spin"></div>
+          <span className="loading-state__text ml-3 text-[#178582]">Loading...</span>
         </div>
       </div>
     )
@@ -96,13 +96,13 @@ function Projects() {
 
   if (error) {
     return (
-      <div className="projects-error min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500">
-        <div className="error-state bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-4">
+      <div className="projects-error min-h-screen flex items-center justify-center bg-[#0A1828]">
+        <div className="error-state bg-red-900/20 border border-red-700 rounded-lg p-6 max-w-md mx-4">
           <div className="error-state__header flex items-center mb-2">
-            <span className="error-state__icon text-red-500 mr-2">⚠️</span>
-            <h3 className="error-state__title text-red-800 font-medium">Error Loading Content</h3>
+            <span className="error-state__icon text-red-400 mr-2">⚠️</span>
+            <h3 className="error-state__title text-red-300 font-medium">Error Loading Content</h3>
           </div>
-          <p className="error-state__message text-red-700">
+          <p className="error-state__message text-red-200">
             {error}
           </p>
         </div>
@@ -118,40 +118,40 @@ function Projects() {
         accent={projectsContent?.accent}
         className="projects-hero"
       />
-      <section className="projects-list py-16 bg-white">
+      <section className="projects-list py-16 bg-[#1A2332]">
         <div className="projects-list__container container mx-auto px-4">
           {cardsLoading ? (
             <div className="loading-state flex items-center justify-center p-8">
-              <div className="loading-state__spinner w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-              <span className="loading-state__text ml-3 text-gray-600">Loading cards...</span>
+              <div className="loading-state__spinner w-8 h-8 border-4 border-[#178582] border-t-transparent rounded-full animate-spin"></div>
+              <span className="loading-state__text ml-3 text-gray-300">Loading cards...</span>
             </div>
           ) : cardsError ? (
-            <div className="error-state bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-4">
+            <div className="error-state bg-red-900/20 border border-red-700 rounded-lg p-6 max-w-md mx-4">
               <div className="error-state__header flex items-center mb-2">
-                <span className="error-state__icon text-red-500 mr-2">⚠️</span>
-                <h3 className="error-state__title text-red-800 font-medium">Error Loading Cards</h3>
+                <span className="error-state__icon text-red-400 mr-2">⚠️</span>
+                <h3 className="error-state__title text-red-300 font-medium">Error Loading Cards</h3>
               </div>
-              <p className="error-state__message text-red-700">
+              <p className="error-state__message text-red-200">
                 {cardsError}
               </p>
             </div>
           ) : (
-            <div className="projects-list__grid grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="projects-list__grid grid grid-cols-1 md:grid-cols-3 gap-8">
               {projectCards.map((project, idx) => {
-                const Icon = iconMap[project.icon] || project.icon // fallback to project.icon if already a component
-                return (
-                  <ServiceCard
+              const Icon = iconMap[project.icon] || project.icon // fallback to project.icon if already a component
+              return (
+                <ServiceCard
                     key={project.id || idx}
-                    icon={Icon}
-                    title={project.title}
-                    description={project.description}
-                    poster={project.poster}
-                    onClick={() => handleCardClick(project)}
-                    className="projects-list__item"
-                  />
-                )
-              })}
-            </div>
+                  icon={Icon}
+                  title={project.title}
+                  description={project.description}
+                  poster={project.poster}
+                  onClick={() => handleCardClick(project)}
+                  className="projects-list__item"
+                />
+              )
+            })}
+          </div>
           )}
         </div>
       </section>

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import ModalPortal from './ModalPortal'
 import 'hover.css/css/hover-min.css'
@@ -8,14 +7,10 @@ function ServiceCard({ icon: Icon, title, description, poster, className = '', o
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
 
   return (
-    <motion.div
+    <div
       ref={ref}
       onClick={onClick}
-      className={`service-card group relative p-8 rounded-2xl bg-white/60 backdrop-blur-xl border border-blue-200/40 shadow-lg text-center transition-all duration-300 cursor-pointer focus:outline-none overflow-hidden ${className}`}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.7, ease: 'easeOut' }}
+      className={`service-card group relative p-8 rounded-2xl bg-[#1A2332]/80 backdrop-blur-xl border border-[#2D3748] shadow-lg text-center transition-all duration-300 cursor-pointer focus:outline-none overflow-hidden ${className}`}
       tabIndex={0}
       role="button"
       aria-label={`Learn more about ${title}`}
@@ -33,14 +28,14 @@ function ServiceCard({ icon: Icon, title, description, poster, className = '', o
       <div className="service-card__overlay absolute inset-0 bg-black/50 z-10" />
 
       {/* Blue blur glow on hover/focus */}
-      <div className="service-card__glow pointer-events-none absolute inset-0 z-20 rounded-2xl opacity-0 group-hover:opacity-80 group-focus:opacity-80 transition duration-300 blur-xl bg-blue-400/40" />
+      <div className="service-card__glow pointer-events-none absolute inset-0 z-20 rounded-2xl opacity-0 group-hover:opacity-80 group-focus:opacity-80 transition duration-300 blur-xl bg-[#178582]/40" />
       
       <div className="service-card__content relative z-30 flex flex-col items-center">
-        {Icon && <Icon className="service-card__icon w-12 h-12 text-blue-500 mb-4 mx-auto transition-transform duration-300 group-hover:scale-110 group-focus:scale-110" />}
+        {Icon && <Icon className="service-card__icon w-12 h-12 text-[#178582] mb-4 mx-auto transition-transform duration-300 group-hover:scale-110 group-focus:scale-110" />}
         <h3 className="service-card__title text-xl font-bold mb-4 text-white drop-shadow-lg">{title}</h3>
         <p className="service-card__desc text-gray-100">{description}</p>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
@@ -91,13 +86,13 @@ export const ServiceModal = ({ isOpen, onClose, service }) => {
           )}
         </div>
         <div className="text-center">
-          {Icon && <Icon className="w-16 h-16 text-blue-500 mb-2 mx-auto" />}
-          <h3 className="text-2xl font-bold text-blue-900 mb-2">{title}</h3>
-          <p className="text-lg text-gray-700 mb-4 max-w-xl mx-auto">{description}</p>
+          {Icon && <Icon className="w-16 h-16 text-[#178582] mb-2 mx-auto" />}
+          <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
+          <p className="text-lg text-gray-300 mb-4 max-w-xl mx-auto">{description}</p>
         </div>
         <button
           onClick={onClose}
-          className="mt-2 px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-2 px-6 py-3 rounded-lg bg-[#178582] text-white font-semibold hover:bg-[#0F5F5C] focus:outline-none focus:ring-2 focus:ring-[#178582]"
           aria-label="Close modal"
         >
           Close

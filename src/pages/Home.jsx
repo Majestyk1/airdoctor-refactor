@@ -6,8 +6,6 @@ import { db } from '../utils/firebase'
 import HeroSection from '../components/common/HeroSection'
 import ServiceCard, { ServiceModal } from '../components/common/ServiceCard'
 import AnimatedButton from '../components/common/AnimatedButton'
-import { motion } from 'framer-motion'
-import { servicesData } from '../constants'
 import { iconMap } from '../constants/iconMap'
 
 
@@ -93,20 +91,20 @@ function Home() {
     <>
       {/* Hero Section */}
       {loading ? (
-        <div className="hero-loading min-h-[100dvh] flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500">
+        <div className="hero-loading min-h-[100dvh] flex items-center justify-center bg-[#0A1828]">
           <div className="loading-state flex items-center justify-center p-8">
-            <div className="loading-state__spinner w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-            <span className="loading-state__text ml-3 text-white">Loading...</span>
+            <div className="loading-state__spinner w-8 h-8 border-4 border-[#178582] border-t-transparent rounded-full animate-spin"></div>
+            <span className="loading-state__text ml-3 text-[#178582]">Loading...</span>
           </div>
         </div>
       ) : error ? (
-        <div className="hero-error min-h-[100dvh] flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500">
-          <div className="error-state bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-4">
+        <div className="hero-error min-h-[100dvh] flex items-center justify-center bg-[#0A1828]">
+          <div className="error-state bg-red-900/20 border border-red-700 rounded-lg p-6 max-w-md mx-4">
             <div className="error-state__header flex items-center mb-2">
-              <span className="error-state__icon text-red-500 mr-2">⚠️</span>
-              <h3 className="error-state__title text-red-800 font-medium">Error Loading Content</h3>
+              <span className="error-state__icon text-red-400 mr-2">⚠️</span>
+              <h3 className="error-state__title text-red-300 font-medium">Error Loading Content</h3>
             </div>
-            <p className="error-state__message text-red-700">
+            <p className="error-state__message text-red-200">
               {error}
             </p>
           </div>
@@ -134,13 +132,9 @@ function Home() {
             <Link to="/contact" className="w-full sm:w-auto">
               <AnimatedButton className="hero-section__button w-full sm:w-auto rounded-xl px-8 py-3 text-lg flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-blue-200/40">
                 <span className="hero-section__button-content flex items-center gap-2">
-                  <motion.span
-                    className="hero-section__button-icon flex items-center"
-                    whileHover={{ scale: 1.18 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 18 }}
-                  >
+                  <span className="hero-section__button-icon flex items-center">
                     <Volume2 className="w-5 h-5" />
-                  </motion.span>
+                  </span>
                   <span>Let's Talk</span>
                 </span>
               </AnimatedButton>
@@ -150,23 +144,23 @@ function Home() {
       )}
 
       {/* What We Do Best Section */}
-      <section className="home-whatwedo py-20 bg-white">
+      <section className="home-whatwedo py-20 bg-[#1A2332]">
         <div className="home-whatwedo__container container mx-auto px-4">
-          <h2 className="home-whatwedo__title text-3xl md:text-4xl font-bold text-center mb-16">
+          <h2 className="home-whatwedo__title text-3xl md:text-4xl font-bold text-center mb-16 text-white">
             What We Do Best
           </h2>
           {cardsLoading ? (
             <div className="loading-state flex items-center justify-center p-8">
-              <div className="loading-state__spinner w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-              <span className="loading-state__text ml-3 text-gray-600">Loading cards...</span>
+              <div className="loading-state__spinner w-8 h-8 border-4 border-[#178582] border-t-transparent rounded-full animate-spin"></div>
+              <span className="loading-state__text ml-3 text-gray-300">Loading cards...</span>
             </div>
           ) : cardsError ? (
-            <div className="error-state bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="error-state bg-red-900/20 border border-red-700 rounded-lg p-4">
               <div className="error-state__header flex items-center mb-2">
-                <span className="error-state__icon text-red-500 mr-2">⚠️</span>
-                <h3 className="error-state__title text-red-800 font-medium">Error Loading Cards</h3>
+                <span className="error-state__icon text-red-400 mr-2">⚠️</span>
+                <h3 className="error-state__title text-red-300 font-medium">Error Loading Cards</h3>
               </div>
-              <p className="error-state__message text-red-700">{cardsError}</p>
+              <p className="error-state__message text-red-200">{cardsError}</p>
             </div>
           ) : (
             <div className="home-whatwedo__grid grid grid-cols-1 md:grid-cols-3 gap-8">

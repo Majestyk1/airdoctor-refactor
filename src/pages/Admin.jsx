@@ -385,7 +385,7 @@ function Admin() {
   const handleRemoveProjectCard = async (idx) => {
     const card = projectCards[idx]
     if (!card || !card.id) {
-      setProjectCards(cards => cards.filter((_, i) => i !== idx))
+    setProjectCards(cards => cards.filter((_, i) => i !== idx))
       return
     }
     try {

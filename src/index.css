@@ -1,14 +1,53 @@
 @import "tailwindcss";
 
 @layer base {
+  /* Industrial Dark Blue Theme */
+  :root {
+    --primary-dark: #0A1828;
+    --primary-accent: #178582;
+    --accent-gold: #BFA181;
+    --text-light: #F8F9FA;
+    --text-muted: #6C757D;
+    --bg-dark: #0A1828;
+    --bg-card: #1A2332;
+    --border-color: #2D3748;
+  }
+
   /* Professional font stack with traditional fallbacks */
   body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    background-color: var(--bg-dark);
+    color: var(--text-light);
   }
 }
 
 @layer utilities {
   .bg-brand-gradient {
     @apply bg-gradient-to-br from-blue-600 to-green-600;
+  }
+  
+  /* Dark theme overrides */
+  .bg-white {
+    background-color: var(--bg-card) !important;
+  }
+  
+  .text-gray-800 {
+    color: var(--text-light) !important;
+  }
+  
+  .text-gray-600 {
+    color: var(--text-muted) !important;
+  }
+  
+  .border-gray-200 {
+    border-color: var(--border-color) !important;
+  }
+  
+  .bg-gray-50 {
+    background-color: var(--bg-card) !important;
+  }
+  
+  .bg-gray-100 {
+    background-color: var(--border-color) !important;
   }
 }
