@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="15" fill="#178582" stroke="#0F5F5C" stroke-width="1"/>
+  
+  <!-- "AD" text -->
+  <text x="16" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">AD</text>
+  
+  <!-- Small HVAC icon element -->
+  <circle cx="8" cy="8" r="2" fill="white" opacity="0.8"/>
+  <circle cx="24" cy="8" r="2" fill="white" opacity="0.8"/>
+  <circle cx="8" cy="24" r="2" fill="white" opacity="0.8"/>
+  <circle cx="24" cy="24" r="2" fill="white" opacity="0.8"/>
+</svg> 
