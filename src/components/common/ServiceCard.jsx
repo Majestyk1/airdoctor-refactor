@@ -87,6 +87,12 @@ export const ServiceModal = ({ isOpen, onClose, service }) => {
               />
             )
           )}
+          
+          {/* Themed overlay for video/poster */}
+          <div className="service-modal__overlay absolute inset-0 z-10 bg-gradient-to-t from-[#178582]/30 via-[#178582]/10 to-transparent"></div>
+          
+          {/* Subtle border glow */}
+          <div className="service-modal__glow absolute inset-0 z-20 rounded-2xl border border-[#178582]/40 shadow-[0_0_20px_rgba(23,133,130,0.3)] pointer-events-none"></div>
         </div>
         <div className="text-center">
           {Icon && <Icon className="w-16 h-16 text-[#178582] mb-2 mx-auto" />}

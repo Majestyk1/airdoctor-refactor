@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 function InfoCard({ avatar, name, role, bio, extra, className = '' }) {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -38,32 +39,49 @@ function InfoCard({ avatar, name, role, bio, extra, className = '' }) {
         <p className="info-card__role text-[#178582] font-semibold mb-4">{role}</p>
         
         {/* Expandable Bio Content */}
-        {isExpanded ? (
-          <div
-            key="expanded"
-            className="info-card__expanded-content w-full"
-          >
-            <div className="info-card__bio text-gray-300 text-left leading-relaxed mb-4">
-              <p>{bio}</p>
-            </div>
-            {extra && (
-              <div className="info-card__extra mb-4">
-                {extra}
-              </div>
-            )}
-            <p className="info-card__collapse-hint text-[#178582] font-medium text-sm">
-              Click to collapse
-            </p>
-          </div>
-        ) : (
-          <div
-            key="collapsed"
-          >
-            <p className="info-card__expand-hint text-[#178582] font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              Click for more info
-            </p>
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          {isExpanded ? (
+            <motion.div
+              key="expanded"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.15, opacity: { duration: 0.1 } }}
+              className="info-card__expanded-content w-full"
+            >
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.1 }}
+              >
+                <div className="info-card__bio text-gray-300 text-left leading-relaxed mb-4">
+                  <p>{bio}</p>
+                </div>
+                {extra && (
+                  <div className="info-card__extra mb-4">
+                    {extra}
+                  </div>
+                )}
+                <p className="info-card__collapse-hint text-[#178582] font-medium text-sm">
+                  Click to collapse
+                </p>
+              </motion.div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="collapsed"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1 }}
+            >
+              <p className="info-card__expand-hint text-[#178582] font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                Click for more info
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )

@@ -127,25 +127,32 @@ function About() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.15, opacity: { duration: 0.1 } }}
                     className="about-cta__expanded-content w-full"
                   >
-                    <p className="about-cta__text text-lg text-gray-300 max-w-2xl mx-auto mb-6">
-                      Got a project or want to talk shop? Chris is always happy to chat HVACR, tech, or Texas weather. Reach out and let's make something cool happen—with a little Dodgers magic!
-                    </p>
-                    
-                    {/* CTA Button - Matching AnimatedButton hover effects */}
-                    <Link 
-                      to="/contact" 
-                      className="about-cta__button inline-block px-6 py-3 bg-[#178582] hover:bg-[#0F5F5C] text-white font-semibold rounded-lg shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#178582] focus:ring-offset-2 hover:shadow-[#178582]/50 active:scale-95 active:shadow-inner cursor-pointer mb-4"
-                      onClick={(e) => e.stopPropagation()} // Prevent card collapse when clicking button
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.1 }}
                     >
-                      Get In Touch
-                    </Link>
-                    
-                    <p className="about-cta__collapse-hint text-[#178582] font-medium text-sm">
-                      Click to collapse
-                    </p>
+                      <p className="about-cta__text text-lg text-gray-300 max-w-2xl mx-auto mb-6">
+                        Ready to discuss your HVACR project or explore energy-efficient solutions? Chris brings 35+ years of expertise to every consultation. Whether you need system upgrades, maintenance planning, or custom installations, we're here to deliver professional results with the reliability you deserve.
+                      </p>
+                      
+                      {/* CTA Button - Matching AnimatedButton hover effects */}
+                      <Link 
+                        to="/contact" 
+                        className="about-cta__button inline-block px-6 py-3 bg-[#178582] hover:bg-[#0F5F5C] text-white font-semibold rounded-lg shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#178582] focus:ring-offset-2 hover:shadow-[#178582]/50 active:scale-95 active:shadow-inner cursor-pointer mb-4"
+                        onClick={(e) => e.stopPropagation()} // Prevent card collapse when clicking button
+                      >
+                        Get In Touch
+                      </Link>
+                      
+                      <p className="about-cta__collapse-hint text-[#178582] font-medium text-sm">
+                        Click to collapse
+                      </p>
+                    </motion.div>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -153,7 +160,7 @@ function About() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.1 }}
                   >
                     <p className="about-cta__expand-hint text-[#178582] font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       Click for more info

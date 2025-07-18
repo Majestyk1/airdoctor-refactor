@@ -171,11 +171,11 @@ function Contact() {
                 <input
                   type="text"
                   {...register('name', { required: 'Name is required' })}
-                  className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-[#1A2332]/60 text-white placeholder-gray-300 border-[#178582]/40 focus:outline-none focus:ring-2 focus:ring-[#178582] ${errors.name ? 'border-red-400' : 'border-[#178582]/40'}`}
+                  className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-[#1A2332]/60 text-white placeholder-gray-300 border-[#178582]/40 focus:outline-none focus:ring-2 focus:ring-black ${errors.name ? 'border-yellow-400' : 'border-[#178582]/40'}`}
                   placeholder="Your name"
                 />
                 {errors.name && (
-                  <span className="contact-form__error text-sm text-red-300 mt-1">{errors.name.message}</span>
+                  <span className="contact-form__error text-sm text-yellow-300 mt-1">{errors.name.message}</span>
                 )}
               </div>
               <div className="contact-form__field">
@@ -191,11 +191,11 @@ function Contact() {
                       message: 'Enter a valid email'
                     }
                   })}
-                  className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-[#1A2332]/60 text-white placeholder-gray-300 border-[#178582]/40 focus:outline-none focus:ring-2 focus:ring-[#178582] ${errors.email ? 'border-red-400' : 'border-[#178582]/40'}`}
+                  className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-[#1A2332]/60 text-white placeholder-gray-300 border-[#178582]/40 focus:outline-none focus:ring-2 focus:ring-black ${errors.email ? 'border-yellow-400' : 'border-[#178582]/40'}`}
                   placeholder="you@email.com"
                 />
                 {errors.email && (
-                  <span className="contact-form__error text-sm text-red-300 mt-1">{errors.email.message}</span>
+                  <span className="contact-form__error text-sm text-yellow-300 mt-1">{errors.email.message}</span>
                 )}
               </div>
               <div className="contact-form__field">
@@ -204,11 +204,11 @@ function Contact() {
                 </label>
                 <textarea
                   {...register('message', { required: 'Message is required' })}
-                  className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-[#1A2332]/60 text-white placeholder-gray-300 border-[#178582]/40 focus:outline-none focus:ring-2 focus:ring-[#178582] min-h-[120px] ${errors.message ? 'border-red-400' : 'border-[#178582]/40'}`}
+                  className={`contact-form__input w-full px-4 py-3 border rounded-lg bg-[#1A2332]/60 text-white placeholder-gray-300 border-[#178582]/40 focus:outline-none focus:ring-2 focus:ring-black min-h-[120px] ${errors.message ? 'border-yellow-400' : 'border-[#178582]/40'}`}
                   placeholder="How can Chris help you?"
                 />
                 {errors.message && (
-                  <span className="contact-form__error text-sm text-red-300 mt-1">{errors.message.message}</span>
+                  <span className="contact-form__error text-sm text-yellow-300 mt-1">{errors.message.message}</span>
                 )}
               </div>
               <AnimatedButton
