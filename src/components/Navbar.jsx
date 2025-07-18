@@ -49,11 +49,11 @@ function Navbar({ isOpen, onToggle, onClose }) {
     <motion.header
       className={`navbar fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'navbar__scrolled bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 shadow-2xl py-2 backdrop-blur-lg'
-          : 'navbar__transparent bg-gradient-to-br from-blue-800 via-blue-700 to-blue-600 py-4 backdrop-blur-md'
+          ? 'navbar__scrolled bg-[#0A1828]/95 shadow-2xl py-2 backdrop-blur-lg'
+          : 'navbar__transparent bg-[#0A1828]/90 py-4 backdrop-blur-md'
       }`}
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <div className="navbar__container flex items-center justify-between max-w-7xl mx-auto px-4">
@@ -61,8 +61,8 @@ function Navbar({ isOpen, onToggle, onClose }) {
         <div>
           <Link to="/" className={`navbar__logo text-lg font-extrabold tracking-widest transition-colors ${
             isScrolled
-              ? 'navbar__logo_scrolled text-sky-400 drop-shadow-lg hover:text-sky-300'
-              : 'navbar__logo_transparent text-white drop-shadow hover:text-sky-400'
+              ? 'navbar__logo_scrolled text-[#178582] drop-shadow-lg hover:text-[#BFA181]'
+              : 'navbar__logo_transparent text-white drop-shadow hover:text-[#178582]'
           }`}>
             AirDoctorHVACR
           </Link>
@@ -75,8 +75,8 @@ function Navbar({ isOpen, onToggle, onClose }) {
                 to={to} 
                 className={`navbar__link text-sm font-semibold transition-colors ${
                   isScrolled
-                    ? 'navbar__link_scrolled text-white hover:text-sky-400'
-                    : 'navbar__link_transparent text-white hover:text-sky-400'
+                    ? 'navbar__link_scrolled text-white hover:text-[#178582]'
+                    : 'navbar__link_transparent text-white hover:text-[#178582]'
                 }`} 
                 onClick={onClose}
               >
@@ -92,8 +92,8 @@ function Navbar({ isOpen, onToggle, onClose }) {
               href="tel:5551234567" 
               className={`navbar__cta-phone hidden md:inline-flex items-center gap-2 text-sm font-semibold transition-colors ${
                 isScrolled
-                  ? 'navbar__cta-phone_scrolled text-sky-400 hover:text-sky-300'
-                  : 'navbar__cta-phone_transparent text-white hover:text-sky-400'
+                  ? 'navbar__cta-phone_scrolled text-[#178582] hover:text-[#BFA181]'
+                  : 'navbar__cta-phone_transparent text-white hover:text-[#178582]'
               }`} 
               aria-label="Call 555-123-4567"
             >
@@ -104,10 +104,10 @@ function Navbar({ isOpen, onToggle, onClose }) {
           <div>
             <button 
               onClick={onToggle} 
-              className={`navbar__menu-toggle md:hidden p-2 bg-white/10 rounded-lg shadow border-none cursor-pointer transition-colors ${
+              className={`navbar__menu-toggle md:hidden p-2 bg-[#178582]/20 rounded-lg shadow border-none cursor-pointer transition-colors ${
                 isScrolled
-                  ? 'navbar__menu-toggle_scrolled text-sky-400 hover:text-sky-300'
-                  : 'navbar__menu-toggle_transparent text-white hover:text-sky-400'
+                  ? 'navbar__menu-toggle_scrolled text-[#178582] hover:text-[#BFA181]'
+                  : 'navbar__menu-toggle_transparent text-white hover:text-[#178582]'
               }`} 
               aria-label="Toggle navigation" 
               tabIndex="0" 
@@ -127,13 +127,13 @@ function Navbar({ isOpen, onToggle, onClose }) {
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className={`navbar__drawer fixed inset-y-0 right-0 w-3/4 max-w-xs bg-transparent p-6 z-50 shadow-2xl backdrop-blur-2xl ${isOpen ? 'navbar__drawer_open translate-x-0' : 'navbar__drawer_closed translate-x-full'}`}
+          className={`navbar__drawer fixed inset-y-0 right-0 w-3/4 max-w-xs bg-[#1A2332]/95 p-6 z-50 shadow-2xl backdrop-blur-2xl ${isOpen ? 'navbar__drawer_open translate-x-0' : 'navbar__drawer_closed translate-x-full'}`}
           aria-label="Mobile navigation"
         >
           <nav className="navbar__mobile-nav flex flex-col gap-4">
             {navigationLinks.map(({ to, label }) => (
               <div key={to}>
-                <Link to={to} className="navbar__mobile-link text-lg font-semibold py-2 border-b border-blue-800 text-white no-underline transition-colors hover:text-sky-400" onClick={onClose}>
+                <Link to={to} className="navbar__mobile-link text-lg font-semibold py-2 border-b border-[#2D3748] text-white no-underline transition-colors hover:text-[#178582]" onClick={onClose}>
                   {label}
                 </Link>
               </div>
@@ -141,7 +141,7 @@ function Navbar({ isOpen, onToggle, onClose }) {
           </nav>
           <div className="navbar__drawer-actions mt-8 flex flex-col gap-4">
             <div>
-              <a href="tel:5551234567" className="navbar__drawer-emergency w-full flex items-center justify-center gap-2 border border-sky-400 text-sky-400 py-3 rounded-lg font-semibold no-underline transition-colors hover:bg-sky-400 hover:text-blue-900" aria-label="Emergency phone" onClick={onClose}>
+              <a href="tel:5551234567" className="navbar__drawer-emergency w-full flex items-center justify-center gap-2 border border-[#178582] text-[#178582] py-3 rounded-lg font-semibold no-underline transition-colors hover:bg-[#178582] hover:text-white" aria-label="Emergency phone" onClick={onClose}>
                 <Phone className="navbar__drawer-emergency-icon h-4 w-4" />
                 24/7 Emergency
               </a>
